@@ -1,0 +1,8 @@
+emb|Embarcadero|298 Market St, San Francisco, CA 94111|(37.7929095,-122.399253)
+mon|Montgomery St.|598 Market Street, San Francisco, CA 94104|(37.789135,-122.4041292)
+pow|Powell St.|899 Market Street, San Francisco, CA 94102|(37.783765,-122.4097439)
+civ|Civic Center / UN Plaza|1150 Market Street, San Francisco, CA 94102|(37.7801005,-122.4148802)
+six|16th St. Mission|2000 Mission Street, San Francisco, CA 94110|(37.7651681,-122.4219247)
+two|24th St. Mission|2800 Mission Street, San Francisco, CA 94110|(37.7522535,-122.4206528)
+gle|Glen Park|2901 Diamond Street, San Francisco, CA 94131|(37.7331033,-122.4362305)
+bal|Balboa Park|401 Geneva Avenue, San Francisco, CA 94112|(37.7215037,-122.4496858)
