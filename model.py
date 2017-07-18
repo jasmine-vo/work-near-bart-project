@@ -32,6 +32,8 @@ class Business(db.Model):
     address = db.Column(db.String(50), nullable=False)
     latitude = db.Column(db.String(15), nullable=False)
     longitude = db.Column(db.String(15), nullable=False)
+    distance = db.Column(db.String(10), nullable=False)
+    duration = db.Column(db.String(10), nullable=False)
     station_code = db.Column(db.String(4),
                              db.ForeignKey('stations.station_code'),
                              nullable=False)

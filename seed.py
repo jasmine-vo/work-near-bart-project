@@ -1,6 +1,6 @@
 from sqlalchemy import func
 from model import Bart, Business, Job, connect_to_db, db
-from functions import get_stations, call_indeed
+from functions import get_stations, call_indeed, get_distance
 from math import ceil
 from server import app
 import datetime
@@ -51,12 +51,22 @@ def load_businesses():
     for row in open('data/businesses.txt'):
         row = row.rstrip()
         business_id, name, address, latitude, longitude, station_code = row.split('|')
+        
+        station_latlong = db.session.query(Bart.latitude, Bart.longitude).filter(Bart.station_code==station_code).first()
+
+        distance_results = get_distance('{},{}'.format(station_latlong[0], station_latlong[1]), '{},{}'.format(latitude, longitude))
+
+        distance = distance_results.get('rows')[0].get('elements')[0].get('distance').get('text')
+
+        duration = distance_results.get('rows')[0].get('elements')[0].get('duration').get('text')
 
         business = Business(business_id=business_id,
                             name=name,
                             address=address,
                             latitude=latitude,
                             longitude=longitude,
+                            distance=distance,
+                            duration=duration,
                             station_code=station_code)
 
         db.session.add(business)
