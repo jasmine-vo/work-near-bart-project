@@ -1,3 +1,4 @@
+from model import Bart, Business, Job, db
 import urllib2
 import xmltodict
 import os
@@ -42,3 +43,40 @@ def call_indeed(start, company):
     r = requests.get("http://api.indeed.com/ads/apisearch", params=params)
 
     return r.json()
+
+
+def get_job_results(selected_station, title, within_age):
+    """Get job results from Indeed based on criteria entered as parameters."""
+    
+    if selected_station == 'all':
+    
+        job_results = (db.session.query(Job.url,
+                                        Job.title,
+                                        Business.name,
+                                        Job.date_posted,
+                                        Job.duration_posted,
+                                        Bart.name)
+                        .join(Business)
+                        .join(Bart)
+                        .filter(Job.title.ilike('%{}%'.format(title)),
+                                Job.date_posted > within_age)
+                        .order_by(Job.date_posted.desc())
+                        .all())
+
+    else:
+        
+        job_results = (db.session.query(Job.url,
+                                        Job.title,
+                                        Business.name,
+                                        Job.date_posted,
+                                        Job.duration_posted,
+                                        Bart.name)
+                        .join(Business)
+                        .join(Bart)
+                        .filter(Job.title.ilike('%{}%'.format(title)),
+                                Job.date_posted > within_age,
+                                Business.station_code==selected_station)
+                        .order_by(Job.date_posted.desc())
+                        .all())
+
+    return job_results

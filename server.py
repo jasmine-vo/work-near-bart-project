@@ -2,6 +2,8 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, session, jsonify, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from model import Bart, Business, Job, connect_to_db, db
+from functions import get_job_results
+import datetime
 
 
 app = Flask(__name__)
@@ -20,6 +22,32 @@ def index():
     return render_template("homepage.html",
                             stations=stations)
 
+
+@app.route('/results')
+def display_results():
+    """Displays job results."""
+
+    stations = db.session.query(Bart.station_code, Bart.name, Bart.latitude, Bart.longitude).all()
+
+    title = '%'.join(request.args.get('title').split())
+
+    selected_station = request.args.get('station')
+
+    age = int(request.args.get('age'))
+
+    current_time = datetime.datetime.utcnow()
+
+    within_age = current_time - datetime.timedelta(days=age)
+
+    job_results = get_job_results(selected_station, title, within_age)
+
+
+    return render_template("results.html",
+                            job_results=job_results,
+                            title=title,
+                            selected_station=selected_station,
+                            age=age,
+                            stations=stations)
 
 if __name__ == "__main__":
     app.debug = True
