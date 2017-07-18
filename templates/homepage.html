@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
+
+  <link href="/static/bartmap.css" rel="stylesheet">
+
 {% block head %}
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="/static/bartmap.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps }}&callback=initMap">
+  </script>
 
 {% endblock %}
 {% block body %}
@@ -30,11 +37,11 @@
     <option value="50">50 per page</option>
     <option value="100">100 per page</option>
   </select>
-  
+
   </div>
   <input type="submit">
 
 </form>
 
-
+<div id="bartmap"></div>
 {% endblock %}

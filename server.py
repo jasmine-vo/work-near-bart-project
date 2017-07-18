@@ -5,12 +5,15 @@ from model import Bart, Business, Job, connect_to_db, db
 from functions import get_job_results
 import datetime
 from math import ceil
+import os
 
 app = Flask(__name__)
 
 app.secret_key = "worknearbart"
 
 app.jinja_env.undefined = StrictUndefined
+
+gmaps = os.environ['GOOGLE_MAPS_KEY']
 
 
 @app.route('/')
@@ -20,7 +23,8 @@ def index():
     stations = db.session.query(Bart.station_code, Bart.name, Bart.latitude, Bart.longitude).all()
 
     return render_template("homepage.html",
-                            stations=stations)
+                            stations=stations,
+                            gmaps=gmaps)
 
 
 @app.route('/results/<page_num>')
@@ -63,6 +67,26 @@ def display_results(page_num):
                             selected_station=selected_station,
                             age=age,
                             stations=stations)
+
+
+@app.route('/stations.json')
+def get_station_info():
+    """JSON information about stations"""
+
+    stations = {
+        station.station_code: {
+            'stationName': station.name,
+            'stationAddress': station.address,
+            'stationCity': station.city,
+            'stationState': station.state,
+            'stationZipcode': station.zipcode,
+            'stationLatitude': station.latitude,
+            'stationLongitude': station.longitude,
+        }
+        for station in Bart.query.all()}
+
+    return jsonify(stations) 
+
 
 if __name__ == "__main__":
     app.debug = True
