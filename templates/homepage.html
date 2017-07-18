@@ -3,7 +3,7 @@
 
 {% endblock %}
 {% block body %}
-<form action="/results">
+<form action="/results/1">
 <div class="row">
   Title: <input type="text" name="title">
 </div>
@@ -24,6 +24,13 @@
     <option value="30">within 30 days</option>
   </select>
 
+  <select name="display">
+    <option value="10">10 per page</option>
+    <option value="25">25 per page</option>
+    <option value="50">50 per page</option>
+    <option value="100">100 per page</option>
+  </select>
+  
   </div>
   <input type="submit">
 

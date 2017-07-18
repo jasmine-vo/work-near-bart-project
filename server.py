@@ -4,7 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import Bart, Business, Job, connect_to_db, db
 from functions import get_job_results
 import datetime
-
+from math import ceil
 
 app = Flask(__name__)
 
@@ -23,8 +23,8 @@ def index():
                             stations=stations)
 
 
-@app.route('/results')
-def display_results():
+@app.route('/results/<page_num>')
+def display_results(page_num):
     """Displays job results."""
 
     stations = db.session.query(Bart.station_code, Bart.name, Bart.latitude, Bart.longitude).all()
@@ -32,6 +32,8 @@ def display_results():
     title = '%'.join(request.args.get('title').split())
 
     selected_station = request.args.get('station')
+
+    display_per_page = int(request.args.get('display'))
 
     age = int(request.args.get('age'))
 
@@ -41,9 +43,22 @@ def display_results():
 
     job_results = get_job_results(selected_station, title, within_age)
 
+    # uses current page number and display per page to slice results for pagination
+    current_page_results = job_results[int(page_num) * display_per_page - display_per_page : int(page_num) * display_per_page]
+
+    num_results = len(job_results)
+
+    # calcuates number of page links to create
+    if num_results > display_per_page:
+        num_pages = int(ceil(num_results / float(display_per_page)))
+    else:
+        num_pages = 1
 
     return render_template("results.html",
-                            job_results=job_results,
+                            num_pages=int(num_pages),
+                            page_num=int(page_num),
+                            current_page_results=current_page_results,
+                            display_per_page=display_per_page,
                             title=title,
                             selected_station=selected_station,
                             age=age,
