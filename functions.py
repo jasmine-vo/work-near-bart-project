@@ -1,13 +1,11 @@
-from model import Bart, db, connect_to_db
-from flask import Flask
-import requests
 import urllib2
 import xmltodict
 import os
-
-app = Flask(__name__)
+import requests
 
 bartkey = os.environ['BART_KEY']
+indeedkey = os.environ['INDEED_PUBLISHER_ID']
+
 
 def get_stations():
     """Makes a call to the BART API to get bart stations and their information
@@ -22,8 +20,25 @@ def get_stations():
     return stations
 
 
+def call_indeed(start, company):
+    """Make a call to the Indeed API to get all job listings for a specific company
+    at a start point. Response is in JSON format."""
 
-if __name__ == "__main__":
-    
-    app = Flask(__name__)
-    connect_to_db(app)
+    params = {'publisher': '{}'.format(indeedkey),
+              'v': '2',
+              'format': 'json',
+              'q': 'company:"{}"'.format(company),
+              'l': 'San Francisco, CA',
+              'radius': '0',
+              'st': 'employer',
+              'fromage': 'any',
+              'highlight': '0',
+              'start': start,
+              'limit': '25',
+              'userip': '0.0.0.0',
+              'useragent': 'Mozilla/%2F4.0%28Firefox%29'
+              }
+
+    r = requests.get("http://api.indeed.com/ads/apisearch", params=params)
+
+    return r.json()

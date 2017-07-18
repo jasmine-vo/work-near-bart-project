@@ -91,6 +91,3 @@ if __name__ == "__main__":
 
     connect_to_db(app)
     print "Connected to DB."
-
-
-

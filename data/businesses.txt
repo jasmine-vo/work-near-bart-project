@@ -1,105 +1,105 @@
-1|Adroll|2300 Harrisson St Fl 2nd|(37.760377, -122.413227)|six
-2|Advent Software|600 Townsend St|(37.771272, -122.402341)|civ
-3|Agrion Llc|870 Market St 519|(37.784761, -122.407108)|pow
-4|Airbrake|535 Mission St|(37.7888702,-122.400404)|mon
-5|Akqa|118 King St 6th Fl|(37.77963, -122.390086)|mon
-6|Aktana|207 Powell St|(37.786667, -122.40834)|pow
-7|Amazon Corporate LLC|188 Spear St|(37.791438, -122.392671)|emb
-8|Amazon Web Services|475 Sansome St|(37.7918579,-122.4032185)|mon
-9|Apcera|140 New Montgomery St|(37.786644, -122.399515)|mon
-10|App Academy|1061 Market St 4th Fl|(37.781143, -122.411687)|civ
-11|Appdynamics|303 Second St 450|(37.784886, -122.395892)|mon
-12|Aria Systems|575 Market St|(37.789551, -122.400313)|mon
-13|Atlassian|1098 Harrison St|(37.776179, -122.405477)|pow
-14|Autodesk|1 Market St 500|(37.794096, -122.395302)|emb
-15|Automattic|132 Hawthorne St|(37.784171, -122.39722)|mon
-16|Birst|45 Fremont St Floor 18|(37.790956, -122.397349)|emb
-17|Blackrock|400 Howard St 2nd Fl|(37.789226, -122.39513)|emb
-18|Bleacher Report|153 Kearny St 2nd Fl|(37.789558, -122.403794)|mon
-19|Bloomberg|345 California St|(37.792325, -122.40049)|emb
-20|Bluebox|100 Bush St|(37.791521, -122.399959)|emb
-21|Brightpearl|625 Market St 6th Fl 600|(37.788893, -122.40187)|mon
-22|Cbs Interactive|235 2nd St|(37.786079, -122.39736)|mon
-23|Chartboost|85 2nd St 100|(37.788513, -122.39994)|mon
-24|Checkr|1 Montgomery St Ste 2000|(37.789468, -122.402935)|mon
-25|Clever|1263 Mission St|(37.776703, -122.414121)|civ
-26|Clicktime|282 Second St 4th Fl|(37.78567, -122.396858)|mon
-27|Craigslist|222 Sutter St 9th Fl|(37.789737, -122.404434)|mon
-28|Crowdflower|2111 Mission St 302|(37.763167, -122.419501)|six
-29|DataFox|324 5th St|(37.779792, -122.403184)|pow
-30|Designmind|150 Spear St #700|(37.792016, -122.393407)|emb
-31|Disqus|301 Howard St 300|(37.789763, -122.394463)|emb
-32|Docusign|221 Main St #1000|(37.789948, -122.392563)|emb
-33|Duane Morris Llp|1 Market St Spear Tower 20th Fl|(37.794096, -122.395302)|emb
-34|Earnest|1455 Market St 18th Fl|(37.775826, -122.418411)|civ
-35|Entelo|123 Mission St|(37.792099, -122.39462)|emb
-36|Equinox|301 Pine St|(37.792059, -122.40131)|emb
-37|Esurance|650 Davis St|(37.798376, -122.398429)|emb
-38|Eventbrite|155 5th St 7th Fl|(37.781853, -122.405392)|pow
-39|Financialforce|595 Market St 2700|(37.789648, -122.400916)|mon
-40|Fitbit|405 Howard St #550|(37.788955, -122.395477)|emb
-41|Fluxx Labs|77 Maiden Ln|(37.788176, -122.404682)|mon
-42|Globant|875 Howard St|(37.782012, -122.404278)|pow
-43|Google|345 Spear St|(37.790052, -122.390184)|emb
-44|Hack Reactor|944 Market St 8th Fl|(37.783586, -122.408593)|pow
-45|Hackbright Academy|683 Sutter St 201|(37.788847, -122.411645)|pow
-46|Hellosign|944 Market St 400|(37.783586, -122.408593)|pow
-47|Hightail|535 Mission St|(37.788866, -122.39821)|emb
-48|Hired|1455 Market St 19|(37.775826, -122.418411)|civ
-49|Icrossing|550 Kearny St 4th Fl|(37.79297, -122.404505)|mon
-50|Ifttt|923 Market St 400|(37.783602, -122.408573)|pow
-51|Imgur|415 Jackson St 2nd|(37.796571, -122.402408)|emb
-52|Index NOT Exchange|20 California St|(37.793809, -122.39696)|emb
-53|Indiegogo|965 Mission St 600|(37.781522, -122.408013)|pow
-54|Intuit|22 4th St|(37.7841698,-122.414261)|pow
-55|Joyent|655 Montgomery St 1600|(37.795305, -122.403271)|emb
-56|Juniper Square|351 California St Ste 1450|(37.792873, -122.400758)|emb
-57|Kixeye|333 Bush St 19th|(37.790878, -122.403151)|mon
-58|Landor Associates|1001 Front St|(37.800618, -122.400263)|emb
-59|Lanetix|575 Sutter St.|(37.788816, -122.409747)|mon
-60|Lending Club|71 Stevenson St 300|(37.789602, -122.399836)|emb
-61|Lendup|225 Bush St 11|(37.791131, -122.401213)|emb
-62|Marin Software|123 Mission St 25th Floor|(37.792099, -122.39462)|emb
-63|Mashape|55 2nd St|(37.788573, -122.400509)|mon
-64|Microsoft|555 California St|(37.792062, -122.403697)|mon
-65|Morrison & Foerster|425 Market St|(37.791577, -122.39848)|emb
-66|Mulesoft|77 Geary St 400|(37.787807, -122.404699)|mon
-67|Namely|575 Market St Fl 13|(37.789551, -122.400313)|mon
-68|Narvar|633 Folsom St|(37.784517, -122.397194)|mon
-69|Neustar|505 Howard St|(37.787961, -122.396117)|emb
-70|ON24|795 Folsom St.|(37.782262, -122.400875)|pow
-71|Oomnitza|393 Tehama St|(37.781168, -122.403986)|pow
-72|Optimizely|631 Howard St.|(37.786029, -122.398555)|mon
-73|Oracle|475 Sansome St|(37.794573, -122.40194)|emb
-74|PandaDoc|565 Commercial St|(37.794149, -122.402624)|emb
-75|Periscope|303 2nd St|(37.784886, -122.395892)|mon
-76|Pivotal Labs|875 Howard St|(37.782012, -122.404278)|pow
-77|Pocket Gems|220 Montgomery St 750|(37.791218, -122.402449)|mon
-78|Prism Skylabs|799 Market St 8th Fl|(37.785992, -122.405546)|mon
-79|Quid|600 Harrison St 400|(37.783888, -122.395721)|mon
-80|Radiumone|55 Second St 1800|(37.788573, -122.400509)|mon
-81|Radius not impact not health|225 Bush St|(37.791131, -122.401213)|emb
-82|Reddit|420 Taylor St|(37.786466, -122.411031)|pow
-83|Riverbed Technology|680 Folsom St|(37.784154, -122.398475)|mon
-84|Sighten|564 Market St Ste 500|(37.789741, -122.400798)|mon
-85|Skycatch|424 9th St|(37.772061, -122.409927)|civ
-86|Slack|155 5th St 6|(37.781853, -122.405392)|pow
-87|SmartRecruiters|225 Bush St|(37.791131, -122.401213)|emb
-88|Sparkcentral|650 California St|(37.792912, -122.405211)|mon
-89|Spotify|988 Market St 5th Fl|(37.782401, -122.41009)|pow
-90|Square|1455 Market St 600|(37.775826, -122.418411)|civ
-91|Thoughtworks|315 Montgomery St|(37.792433, -122.402696)|emb
-92|ThousandEyes|301 Howard St|(37.789763, -122.394463)|emb
-93|Thumbtack|1355 Market St 575-600|(37.776769, -122.416616)|civ
-94|Trulia|535 Mission St #700|(37.788866, -122.39821)|emb
-95|Twilio|645 Harrison St 3rd Fl|(37.783701, -122.395959)|mon
-96|Twitch|2 Embarcadero Ctr|(37.794788, -122.39841)|emb
-97|Udacity|653 Harrison St|(37.783158, -122.396115)|mon
-98|Udemy|600 Harrison St|(37.783888, -122.395721)|mon
-99|Unity Technologies|795 Folsom St 200|(37.782262, -122.400875)|pow
-100|Virool|88 Kearny St 2100|(37.788749, -122.403634)|mon
-101|WalkMe|22 4th St|(37.7841698,-122.414261)|pow
-102|Workday|160 Spear St 1650|(37.791839, -122.393182)|emb
-103|Xola|67 Langton St|(37.776719, -122.408901)|civ
-104|Yelp|140 New Montgomery St 9f|(37.786644, -122.399515)|mon
-105|Zoosk|989 Market St|(37.782401, -122.41009)|pow
+1|Adroll|2300 Harrisson St Fl 2nd|37.760377|-122.413227|16TH
+2|Advent Software|600 Townsend St|37.771272|-122.402341|CIVC
+3|Agrion Llc|870 Market St 519|37.784761|-122.407108|POWL
+4|Airbrake|535 Mission St|37.7888702|-122.400404|MONT
+5|Akqa|118 King St 6th Fl|37.77963|-122.390086|MONT
+6|Aktana|207 Powell St|37.786667|-122.40834|POWL
+7|Amazon Corporate LLC|188 Spear St|37.791438|-122.392671|EMBR
+8|Amazon Web Services|475 Sansome St|37.7918579|-122.4032185|MONT
+9|Apcera|140 New Montgomery St|37.786644|-122.399515|MONT
+10|App Academy|1061 Market St 4th Fl|37.781143|-122.411687|CIVC
+11|Appdynamics|303 Second St 450|37.784886|-122.395892|MONT
+12|Aria Systems|575 Market St|37.789551|-122.400313|MONT
+13|Atlassian|1098 Harrison St|37.776179|-122.405477|POWL
+14|Autodesk|1 Market St 500|37.794096|-122.395302|EMBR
+15|Automattic|132 Hawthorne St|37.784171|-122.39722|MONT
+16|Birst|45 Fremont St Floor 18|37.790956|-122.397349|EMBR
+17|Blackrock|400 Howard St 2nd Fl|37.789226|-122.39513|EMBR
+18|Bleacher Report|153 Kearny St 2nd Fl|37.789558|-122.403794|MONT
+19|Bloomberg|345 California St|37.792325|-122.40049|EMBR
+20|Bluebox|100 Bush St|37.791521|-122.399959|EMBR
+21|Brightpearl|625 Market St 6th Fl 600|37.788893|-122.40187|MONT
+22|Cbs Interactive|235 2nd St|37.786079|-122.39736|MONT
+23|Chartboost|85 2nd St 100|37.788513|-122.39994|MONT
+24|Checkr|1 Montgomery St Ste 2000|37.789468|-122.402935|MONT
+25|Clever|1263 Mission St|37.776703|-122.414121|CIVC
+26|Clicktime|282 Second St 4th Fl|37.78567|-122.396858|MONT
+27|Craigslist|222 Sutter St 9th Fl|37.789737|-122.404434|MONT
+28|Crowdflower|2111 Mission St 302|37.763167|-122.419501|16TH
+29|DataFox|324 5th St|37.779792|-122.403184|POWL
+30|Designmind|150 Spear St #700|37.792016|-122.393407|EMBR
+31|Disqus|301 Howard St 300|37.789763|-122.394463|EMBR
+32|Docusign|221 Main St #1000|37.789948|-122.392563|EMBR
+33|Duane Morris Llp|1 Market St Spear Tower 20th Fl|37.794096|-122.395302|EMBR
+34|Earnest|1455 Market St 18th Fl|37.775826|-122.418411|CIVC
+35|Entelo|123 Mission St|37.792099|-122.39462|EMBR
+36|Equinox|301 Pine St|37.792059|-122.40131|EMBR
+37|Esurance|650 Davis St|37.798376|-122.398429|EMBR
+38|Eventbrite|155 5th St 7th Fl|37.781853|-122.405392|POWL
+39|Financialforce|595 Market St 2700|37.789648|-122.400916|MONT
+40|Fitbit|405 Howard St #550|37.788955|-122.395477|EMBR
+41|Fluxx Labs|77 Maiden Ln|37.788176|-122.404682|MONT
+42|Globant|875 Howard St|37.782012|-122.404278|POWL
+43|Google|345 Spear St|37.790052|-122.390184|EMBR
+44|Hack Reactor|944 Market St 8th Fl|37.783586|-122.408593|POWL
+45|Hackbright Academy|683 Sutter St 201|37.788847|-122.411645|POWL
+46|Hellosign|944 Market St 400|37.783586|-122.408593|POWL
+47|Hightail|535 Mission St|37.788866|-122.39821|EMBR
+48|Hired|1455 Market St 19|37.775826|-122.418411|CIVC
+49|Icrossing|550 Kearny St 4th Fl|37.79297|-122.404505|MONT
+50|Ifttt|923 Market St 400|37.783602|-122.408573|POWL
+51|Imgur|415 Jackson St 2nd|37.796571|-122.402408|EMBR
+52|Index|20 California St|37.793809|-122.39696|EMBR
+53|Indiegogo|965 Mission St 600|37.781522|-122.408013|POWL
+54|Intuit|22 4th St|37.7841698|-122.414261|POWL
+55|Joyent|655 Montgomery St 1600|37.795305|-122.403271|EMBR
+56|Juniper Square|351 California St Ste 1450|37.792873|-122.400758|EMBR
+57|Kixeye|333 Bush St 19th|37.790878|-122.403151|MONT
+58|Landor Associates|1001 Front St|37.800618|-122.400263|EMBR
+59|Lanetix|575 Sutter St.|37.788816|-122.409747|MONT
+60|Lending Club|71 Stevenson St 300|37.789602|-122.399836|EMBR
+61|Lendup|225 Bush St 11|37.791131|-122.401213|EMBR
+62|Marin Software|123 Mission St 25th Floor|37.792099|-122.39462|EMBR
+63|Mashape|55 2nd St|37.788573|-122.400509|MONT
+64|Microsoft|555 California St|37.792062|-122.403697|MONT
+65|Morrison & Foerster|425 Market St|37.791577|-122.39848|EMBR
+66|Mulesoft|77 Geary St 400|37.787807|-122.404699|MONT
+67|Namely|575 Market St Fl 13|37.789551|-122.400313|MONT
+68|Narvar|633 Folsom St|37.784517|-122.397194|MONT
+69|Neustar|505 Howard St|37.787961|-122.396117|EMBR
+70|ON24|795 Folsom St.|37.782262|-122.400875|POWL
+71|Oomnitza|393 Tehama St|37.781168|-122.403986|POWL
+72|Optimizely|631 Howard St.|37.786029|-122.398555|MONT
+73|Oracle|475 Sansome St|37.794573|-122.40194|EMBR
+74|PandaDoc|565 Commercial St|37.794149|-122.402624|EMBR
+75|Periscope|303 2nd St|37.784886|-122.395892|MONT
+76|Pivotal Labs|875 Howard St|37.782012|-122.404278|POWL
+77|Pocket Gems|220 Montgomery St 750|37.791218|-122.402449|MONT
+78|Prism Skylabs|799 Market St 8th Fl|37.785992|-122.405546|MONT
+79|Quid|600 Harrison St 400|37.783888|-122.395721|MONT
+80|Radiumone|55 Second St 1800|37.788573|-122.400509|MONT
+81|Radius|225 Bush St|37.791131|-122.401213|EMBR
+82|Reddit|420 Taylor St|37.786466|-122.411031|POWL
+83|Riverbed Technology|680 Folsom St|37.784154|-122.398475|MONT
+84|Sighten|564 Market St Ste 500|37.789741|-122.400798|MONT
+85|Skycatch|424 9th St|37.772061|-122.409927|CIVC
+86|Slack|155 5th St 6|37.781853|-122.405392|POWL
+87|SmartRecruiters|225 Bush St|37.791131|-122.401213|EMBR
+88|Sparkcentral|650 California St|37.792912|-122.405211|MONT
+89|Spotify|988 Market St 5th Fl|37.782401|-122.41009|POWL
+90|Square|1455 Market St 600|37.775826|-122.418411|CIVC
+91|Thoughtworks|315 Montgomery St|37.792433|-122.402696|EMBR
+92|ThousandEyes|301 Howard St|37.789763|-122.394463|EMBR
+93|Thumbtack|1355 Market St 575-600|37.776769|-122.416616|CIVC
+94|Trulia|535 Mission St #700|37.788866|-122.39821|EMBR
+95|Twilio|645 Harrison St 3rd Fl|37.783701|-122.395959|MONT
+96|Twitch|2 Embarcadero Ctr|37.794788|-122.39841|EMBR
+97|Udacity|653 Harrison St|37.783158|-122.396115|MONT
+98|Udemy|600 Harrison St|37.783888|-122.395721|MONT
+99|Unity Technologies|795 Folsom St 200|37.782262|-122.400875|POWL
+100|Virool|88 Kearny St|37.788749|-122.403634|MONT
+101|WalkMe|22 4th St|37.7841698|-122.414261|POWL
+102|Workday|160 Spear St 1650|37.791839|-122.393182|EMBR
+103|Xola|67 Langton St|37.776719|-122.408901|CIVC
+104|Yelp|140 New Montgomery St 9f|37.786644|-122.399515|MONT
+105|Zoosk|989 Market St|37.782401|-122.41009|POWL

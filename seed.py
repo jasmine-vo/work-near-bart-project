@@ -69,4 +69,3 @@ if __name__ == "__main__":
     load_stations()
     load_businesses()
     set_val_business_id()
-
