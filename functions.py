@@ -6,6 +6,7 @@ import requests
 
 bartkey = os.environ['BART_KEY']
 indeedkey = os.environ['INDEED_PUBLISHER_ID']
+gdistancekey = os.environ['GOOGLE_DISTANCE_MATRIX_KEY']
 
 
 def get_stations():
@@ -80,3 +81,20 @@ def get_job_results(selected_station, title, within_age):
                         .all())
 
     return job_results
+
+
+def get_distance(station_latlong, business_latlong):
+    """Make a call to Google Distance Matrix API to get distance between the
+    BART station and Company."""
+
+    params = {'origins': '{}'.format(station_latlong),
+              'destinations': '{}'.format(business_latlong),
+              'key': ''.format(gdistancekey),
+              'mode': 'walking',
+              'units': 'imperial',  
+            }
+
+    r = requests.get("https://maps.googleapis.com/maps/api/distancematrix/json",
+                    params=params)
+
+    return r.json()
