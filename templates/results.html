@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block head %}
 
-
+<link href="/static/results.css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -40,10 +40,16 @@
 
   {% if current_page_results %}
     {% for job in current_page_results %}
+      <div class="media">
+        <img class="pull-left" src="{{ job[8] }}">
+        <div class="media-body">
         <a href="{{ job[0] }}">{{ job[1] }}</a></h5><br>
         {{ job[2] }}<br>
         Posted: {{ job[3] }} - {{ job [4] }}<br>
-        BART Station: {{ job [5] }} | Distance: {{ job[6] }} | Walking Time: ~{{ job[7] }}<br><br>
+        BART Station: {{ job [5] }} | Distance: {{ job[6] }} | Walking Time: ~{{ job[7] }}<br>
+        Glassdoor Rating: <a href="{{ job[11] }}">{{ job[9] }}</a> | Industry: {{ job[10] }}<br>
+        </div>  
+      </div>
     {% endfor %}
   {% else %}
     <h4>No Results</h4>

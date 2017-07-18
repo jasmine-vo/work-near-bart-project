@@ -34,6 +34,10 @@ class Business(db.Model):
     longitude = db.Column(db.String(15), nullable=False)
     distance = db.Column(db.String(10), nullable=False)
     duration = db.Column(db.String(10), nullable=False)
+    logo_url = db.Column(db.String(200), nullable=True)
+    rating = db.Column(db.String(20), nullable=True)
+    industry = db.Column(db.String(100), nullable=True)
+    glassdoor_url = db.Column(db.String(200), nullable=True)
     station_code = db.Column(db.String(4),
                              db.ForeignKey('stations.station_code'),
                              nullable=False)

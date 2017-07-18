@@ -1,6 +1,6 @@
 from sqlalchemy import func
 from model import Bart, Business, Job, connect_to_db, db
-from functions import get_stations, call_indeed, get_distance
+from functions import get_stations, call_indeed, get_distance, get_company_info
 from math import ceil
 from server import app
 import datetime
@@ -60,14 +60,49 @@ def load_businesses():
 
         duration = distance_results.get('rows')[0].get('elements')[0].get('duration').get('text')
 
-        business = Business(business_id=business_id,
-                            name=name,
-                            address=address,
-                            latitude=latitude,
-                            longitude=longitude,
-                            distance=distance,
-                            duration=duration,
-                            station_code=station_code)
+        company_info_results = get_company_info(name)
+
+        if company_info_results is not None:
+
+            print "{} OK".format(name)
+
+            logo_url = company_info_results.get('response').get('employers')[0].get('squareLogo')
+
+            rating = company_info_results.get('response').get('employers')[0].get('overallRating')
+
+            industry = company_info_results.get('response').get('employers')[0].get('sectorName')
+
+            if company_info_results.get('response').get('employers')[0].get('featuredReview'):
+                
+                glassdoor_url = company_info_results.get('response').get('employers')[0].get('featuredReview').get('attributionURL')
+
+            else:
+
+                glassdoor_url = None
+
+            business = Business(business_id=business_id,
+                                name=name,
+                                address=address,
+                                latitude=latitude,
+                                longitude=longitude,
+                                distance=distance,
+                                duration=duration,
+                                logo_url=logo_url,
+                                rating=rating,
+                                industry=industry,
+                                glassdoor_url=glassdoor_url,
+                                station_code=station_code)        
+
+        else:
+            
+            business = Business(business_id=business_id,
+                                name=name,
+                                address=address,
+                                latitude=latitude,
+                                longitude=longitude,
+                                distance=distance,
+                                duration=duration,
+                                station_code=station_code) 
 
         db.session.add(business)
 

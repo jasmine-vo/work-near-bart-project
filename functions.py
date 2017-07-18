@@ -7,6 +7,8 @@ import requests
 bartkey = os.environ['BART_KEY']
 indeedkey = os.environ['INDEED_PUBLISHER_ID']
 gdistancekey = os.environ['GOOGLE_DISTANCE_MATRIX_KEY']
+glassdoorid = os.environ['GLASSDOOR_PARTNER_ID']
+glassdoorkey = os.environ['GLASSDOOR_KEY']
 
 
 def get_stations():
@@ -58,7 +60,11 @@ def get_job_results(selected_station, title, within_age):
                                         Job.duration_posted,
                                         Bart.name,
                                         Business.distance,
-                                        Business.duration)
+                                        Business.duration,
+                                        Business.logo_url,
+                                        Business.rating,
+                                        Business.industry,
+                                        Business.glassdoor_url)
                         .join(Business)
                         .join(Bart)
                         .filter(Job.title.ilike('%{}%'.format(title)),
@@ -75,7 +81,11 @@ def get_job_results(selected_station, title, within_age):
                                         Job.duration_posted,
                                         Bart.name,
                                         Business.distance,
-                                        Business.duration)
+                                        Business.duration,
+                                        Business.logo_url,
+                                        Business.rating,
+                                        Business.industry,
+                                        Business.glassdoor_url)
                         .join(Business)
                         .join(Bart)
                         .filter(Job.title.ilike('%{}%'.format(title)),
@@ -102,3 +112,33 @@ def get_distance(station_latlong, business_latlong):
                     params=params)
 
     return r.json()
+
+
+def get_company_info(company):
+    """Call Glassdoor API to get company information."""
+
+    params = {'t.p': '{}'.format(glassdoorid),
+              't.k': '{}'.format(glassdoorkey),
+              'userip': '0.0.0.0',
+              'format': 'json',
+              'v': '1',
+              'action': 'employers',
+              'useragent': 'Mozilla/%2F4.0%28Firefox%29',
+              'q': company,
+              'l': 'San Francisco, CA',
+              # 'pn': start,
+              }
+
+    headers = {'user-agent': 'Mozilla/%2F4.0%28Firefox%29'}
+
+    r = requests.get("http://api.glassdoor.com/api/api.htm", params=params, headers=headers)
+
+    if r.status_code == 200:
+        if r.json().get('response').get('totalRecordCount'):
+            return r.json()
+        else:
+            "None found for {}".format(company)
+            return None
+    else:
+        print "Trying {} again".format(company)
+        get_company_info(company)
