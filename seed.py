@@ -1,5 +1,5 @@
 from sqlalchemy import func
-from model import Bart, Business, Job, connect_to_db, db
+from model import Bart, Business, Job, User, connect_to_db, db
 from functions import get_stations, call_indeed, get_distance, get_company_info
 from math import ceil
 from server import app
@@ -215,4 +215,5 @@ if __name__ == "__main__":
     load_stations()
     load_businesses()
     load_jobs()
+    load_users()
     set_val_business_id()

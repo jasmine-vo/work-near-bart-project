@@ -11,10 +11,26 @@
 
 </head>
 <body>
-
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %}
  <a href="/"> <h3>Work Near BART</h3> </a>
 <div class="container-fluid">
 
+  {% if 'user_id' in session %}
+
+  <form action="/logout" method="POST">
+    <button type="submit">Logout</button>
+  </form>
+    {% else %}
+    <a href="/login">Login</a>
+  {% endif %}
   {% block body %}
 
   {% endblock %}

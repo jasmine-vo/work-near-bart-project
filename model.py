@@ -89,6 +89,32 @@ class User(db.Model):
         return "<User user_id=%s email=%s>" % (self.user_id, self.email)
 
 
+class Favorite(db.Model):
+    """Job listings user favorited."""
+
+    __tablename__ = "favorites"
+
+    favorite_id = db.Column(db.Integer,
+                          autoincrement=True,
+                          primary_key=True)
+    job_id = db.Column(db.Integer,
+                         db.ForeignKey('jobs.job_id'))
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+
+    user = db.relationship("User",
+                            backref=db.backref("favorites"))
+
+    job = db.relationship("Job",
+                            backref=db.backref("favorites"))
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        s = "<Favorite favorite_id=%s job_id=%s user_id=%s>"
+        return s % (self.favorite_id, self.job_id, self.user_id)
+
+        
 ##############################################################################
 
 

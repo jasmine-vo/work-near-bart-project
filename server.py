@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, session, jsonify, flash
 from flask_debugtoolbar import DebugToolbarExtension
-from model import Bart, Business, Job, connect_to_db, db
+from model import Bart, Business, Job, User, connect_to_db, db
 from functions import get_job_results
 import datetime
 from math import ceil
@@ -104,6 +104,41 @@ def get_job_listings():
         }
 
     return jsonify(job_listings)
+
+
+@app.route('/login')
+def login_form():
+    """Display login form."""
+
+    return render_template("login_form.html")
+
+
+@app.route('/login', methods=["POST"])
+def login_in_process():
+    """Login in process."""
+
+    user_password = request.form.get("password")
+    user_email = request.form.get("email")
+
+    if User.query.filter_by(email=user_email, password=user_password).first():
+        user_id = User.query.filter_by(email=user_email).first().user_id
+        flash('Logged in.')
+        session['user_id'] = user_id
+
+        return redirect('/')
+    else:
+        flash("Wrong email or password!")
+        return redirect("/login")
+
+
+@app.route('/logout', methods=["POST"])
+def log_out_process():
+    """Log out process."""
+
+    del session['user_id']
+    flash('Logged out.')
+
+    return redirect('/')
 
 
 if __name__ == "__main__":
