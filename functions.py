@@ -56,7 +56,9 @@ def get_job_results(selected_station, title, within_age):
                                         Business.name,
                                         Job.date_posted,
                                         Job.duration_posted,
-                                        Bart.name)
+                                        Bart.name,
+                                        Business.distance,
+                                        Business.duration)
                         .join(Business)
                         .join(Bart)
                         .filter(Job.title.ilike('%{}%'.format(title)),
@@ -71,7 +73,9 @@ def get_job_results(selected_station, title, within_age):
                                         Business.name,
                                         Job.date_posted,
                                         Job.duration_posted,
-                                        Bart.name)
+                                        Bart.name,
+                                        Business.distance,
+                                        Business.duration)
                         .join(Business)
                         .join(Bart)
                         .filter(Job.title.ilike('%{}%'.format(title)),
