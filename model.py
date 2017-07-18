@@ -7,16 +7,19 @@ class Bart(db.Model):
 
     __tablename__ = "stations"
 
-    station_code = db.Column(db.String(3), primary_key=True)
+    station_code = db.Column(db.String(4), primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     address = db.Column(db.String(50), nullable=False)
-    lat_long = db.Column(db.String(30), nullable=False)
+    city = db.Column(db.String(50), nullable=False)
+    state = db.Column(db.String(2), nullable=False)
+    zipcode = db.Column(db.String(5), nullable=False)
+    latitude = db.Column(db.String(15), nullable=False)
+    longitude = db.Column(db.String(15), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        s = "<Bart station_code=%s name=%s address=%s lat_long=%s>"
-        return s % (self.station_code, self.name, self.address, self.lat_long)
+        return "<Bart station_code=%s name=%s>" % (self.station_code, self.name)
 
 
 class Business(db.Model):
@@ -27,7 +30,8 @@ class Business(db.Model):
     business_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     address = db.Column(db.String(50), nullable=False)
-    lat_long = db.Column(db.String(30), nullable=False)
+    latitude = db.Column(db.String(15), nullable=False)
+    longitude = db.Column(db.String(15), nullable=False)
     station_code = db.Column(db.String(3),
                              db.ForeignKey('stations.station_code'),
                              nullable=False)
@@ -35,13 +39,11 @@ class Business(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        s = "<Business business_id=%s name=%s address=%s lat_long=%s station_code=%s>"
+        s = "<Business business_id=%s name=%s station_code=%s>"
         return s % (self.business_id,
                     self.name,
-                    self.address,
-                    self.lat_long,
                     self.station_code)
-
+        
 
 # class Job(db.Model):
 #     """Job details."""

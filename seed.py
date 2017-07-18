@@ -4,20 +4,35 @@ from server import app
 
 
 def load_stations():
-    """Load location info for each SF Bart station from stations.txt into database"""
+    """Makes a call to BART API to get all SF station locations and loads information 
+    into database"""
 
     print "Bart Stations"
 
     Bart.query.delete()
 
-    for row in open('data/stations.txt'):
-        row = row.rstrip()
-        station_code, name, address, lat_long = row.split('|')
+    stations = get_stations()
+
+    sf_stations = [s for s in stations if s.get('city') == 'San Francisco']
+
+    for station in sf_stations:
+        station_code = station.get('abbr')
+        name = station.get('name')
+        address = station.get('address')
+        city = station.get('city')
+        state = station.get('state')
+        zipcode = station.get('zipcode')
+        latitude = station.get('gtfs_latitude')
+        longitude = station.get('gtfs_longitude')
 
         station = Bart(station_code=station_code,
                        name=name,
                        address=address,
-                       lat_long=lat_long)
+                       city=city,
+                       state=state,
+                       zipcode=zipcode,
+                       latitude=latitude,
+                       longitude=longitude)
 
         db.session.add(station)
 
@@ -33,12 +48,13 @@ def load_businesses():
 
     for row in open('data/businesses.txt'):
         row = row.rstrip()
-        business_id, name, address, lat_long, station_code = row.split('|')
+        business_id, name, address, latitude, longitude, station_code = row.split('|')
 
         business = Business(business_id=business_id,
                             name=name,
                             address=address,
-                            lat_long=lat_long,
+                            latitude=latitude,
+                            longitude=longitude,
                             station_code=station_code)
 
         db.session.add(business)
