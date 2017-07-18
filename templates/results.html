@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block head %}
+
+
+{% endblock %}
+
+{% block body %}
+<form action="/results">
+<div class="row">
+  Title: <input type="text" name="title">
+</div>
+<div class="row">
+  Filter: <select name="station">
+    <option value="all">all stations</option>   
+    {% for station in stations %}
+      <option value={{ station[0] }}>{{ station[1] }}</option>
+    {% endfor %}
+  </select>
+
+  <select name="age">
+    <option value="999">anytime</option>
+    <option value="1">since yesterday</option>
+    <option value="3">within 3 days</option>
+    <option value="7">within 7 days</option>
+    <option value="15">within 15 days</option>
+    <option value="30">within 30 days</option>
+  </select>
+
+  </div>
+  <input type="submit">
+
+</form>
+
+  {% if job_results %}
+    {% for job in job_results %}
+        <a href="{{ job[0] }}">{{ job[1] }}</a></h5><br>
+        {{ job[2] }}<br>
+        Posted: {{ job[3] }} - {{ job [4] }}<br>
+        Bart Station: {{ job [5] }}<br><br>
+    {% endfor %}
+  {% else %}
+    <h4>No Results</h4>
+
+  {% endif %}
+
+{% endblock %}
