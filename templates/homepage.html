@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+{% block body %}
+<form action="/results/1">
+<div class="row">
+  Title: <input type="text" name="title">
+</div>
+<div class="row">
+  Filter: <select name="station">
+    <option value="all">all stations</option>   
+    {% for station in stations %}
+      <option value={{ station[0] }}>{{ station[1] }}</option>
+    {% endfor %}
+  </select>
+
+  </div>
+  <input type="submit">
+
+</form>
+
+
+{% endblock %}

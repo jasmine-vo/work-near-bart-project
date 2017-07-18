@@ -32,7 +32,7 @@ class Business(db.Model):
     address = db.Column(db.String(50), nullable=False)
     latitude = db.Column(db.String(15), nullable=False)
     longitude = db.Column(db.String(15), nullable=False)
-    station_code = db.Column(db.String(3),
+    station_code = db.Column(db.String(4),
                              db.ForeignKey('stations.station_code'),
                              nullable=False)
 
@@ -43,25 +43,29 @@ class Business(db.Model):
         return s % (self.business_id,
                     self.name,
                     self.station_code)
-        
 
-# class Job(db.Model):
-#     """Job details."""
 
-#     __tablename__ = "jobs"
+class Job(db.Model):
+    """Job details."""
 
-#     job_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     name = db.Column(db.String(50), nullable=False)
-#     title = db.Column(db.String(50), nullable=False)
-#     business_id = db.Column(db.Integer,
-#                             db.ForeignKey("business.business_id"),
-#                             nullable=False)
+    __tablename__ = "jobs"
 
-#     def __repr__(self):
-#         """Provide helpful representation when printed."""
+    job_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    url = db.Column(db.String(100), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False)
+    duration_posted = db.Column(db.String(15), nullable=False)
+    business_id = db.Column(db.Integer,
+                            db.ForeignKey("businesses.business_id"),
+                            nullable=False)
+    business = db.relationship("Business",
+                            backref=db.backref("jobs"))
 
-#         s = "<Job job_id=%s name=%s title=%s business_id=%s>"
-#         return s % (self.job_id, self.name, self.title, self.business_id)
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        s = "<Job job_id=%s title=%s business_id=%s>"
+        return s % (self.job_id, self.title, self.business_id)
 
 
 ##############################################################################

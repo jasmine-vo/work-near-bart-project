@@ -1,7 +1,9 @@
 from sqlalchemy import func
-from model import Bart, Business, connect_to_db, db
+from model import Bart, Business, Job, connect_to_db, db
+from functions import get_stations, call_indeed
+from math import ceil
 from server import app
-
+import datetime
 
 def load_stations():
     """Makes a call to BART API to get all SF station locations and loads information 
@@ -62,6 +64,69 @@ def load_businesses():
     db.session.commit()
 
 
+def load_jobs():
+    """Load jobs from Indeed API"""
+
+    print "Jobs"
+
+    Job.query.delete()
+
+    companies = db.session.query(Business.business_id, Business.name).all()
+    
+    job_results = []
+
+    # makes an Indeed API call for each company in database.
+    for company in companies:
+
+        indeed_request = call_indeed(0, company[1])
+
+        results = indeed_request.get('results')
+
+        # if there are results, adds business_id, appends to job_results list
+        if results:
+            for job in results:
+                job['business_id'] = company[0]
+                job_results.append(job)
+
+        # gets total number of jobs opened under the company
+        num_jobs = indeed_request.get('totalResults')
+
+        # divides total number of jobs divided max result returned (25) to get 
+        # number of times to repeat API call
+        repeat = int(ceil(num_jobs / 25.0)) - 1
+
+        if repeat > 1:
+            for n in range(1, repeat + 1):
+                start = n * 25
+                indeed_request = call_indeed(start, company[1])
+                results = indeed_request.get('results')
+
+                if results:
+                    for job in results:
+                        job['business_id'] = company[0]
+                        job_results.append(job)
+    job_id = 0
+
+    for result in job_results:
+        job_id += 1
+        url = 'http://www.indeed.com/rc/clk?jk={}'.format(result.get('jobkey'))
+        title = result.get('jobtitle')
+        date_posted = datetime.datetime.strptime(result.get('date'), '%a, %d %b %Y %H:%M:%S %Z')
+        duration_posted = result.get('formattedRelativeTime')
+        business_id = result.get('business_id')
+
+        job = Job(job_id=job_id,
+                  url=url,
+                  title=title,
+                  date_posted=date_posted,
+                  duration_posted=duration_posted,
+                  business_id=business_id)
+
+        db.session.add(job)
+
+    db.session.commit()
+
+
 def set_val_business_id():
     """Set value for the next business_id after seeding database"""
 
@@ -84,4 +149,5 @@ if __name__ == "__main__":
     # Import different types of data
     load_stations()
     load_businesses()
+    load_jobs()
     set_val_business_id()
