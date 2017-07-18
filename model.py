@@ -74,6 +74,21 @@ class Job(db.Model):
         return s % (self.job_id, self.title, self.business_id)
 
 
+class User(db.Model):
+    """Users."""
+
+    __tablename__ = "users"
+
+    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    email = db.Column(db.String(64), nullable=True)
+    password = db.Column(db.String(64), nullable=True)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<User user_id=%s email=%s>" % (self.user_id, self.email)
+
+
 ##############################################################################
 
 

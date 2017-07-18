@@ -66,7 +66,8 @@ def display_results(page_num):
                             title=title,
                             selected_station=selected_station,
                             age=age,
-                            stations=stations)
+                            stations=stations,
+                            gmaps=gmaps)
 
 
 @app.route('/stations.json')
@@ -86,6 +87,23 @@ def get_station_info():
         for station in Bart.query.all()}
 
     return jsonify(stations) 
+
+
+@app.route('/results.json')
+def get_job_listings():
+    """Return job results on current page in JSON format."""
+
+    job_listings = {}
+
+    for row in session['current_page_results']:
+        job_listings[row[14]] = {
+            'jobCompany': row[3],
+            'jobTitle': row[2],
+            'jobLatitude': row[12],
+            'jobLongitude': row[13]
+        }
+
+    return jsonify(job_listings)
 
 
 if __name__ == "__main__":

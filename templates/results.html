@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block head %}
 
-<link href="/static/results.css" rel="stylesheet">
+  <link href="/static/results.css" rel="stylesheet">
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="/static/companymap.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps }}&callback=initMap">
+  </script>
 {% endblock %}
 
 {% block body %}
@@ -37,6 +41,8 @@
   <input type="submit">
 
 </form>
+
+<div id="companymap"></div>
 
   {% if current_page_results %}
     {% for job in current_page_results %}

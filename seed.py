@@ -94,7 +94,7 @@ def load_businesses():
                                 station_code=station_code)        
 
         else:
-            
+
             business = Business(business_id=business_id,
                                 name=name,
                                 address=address,
@@ -169,6 +169,26 @@ def load_jobs():
 
         db.session.add(job)
 
+    db.session.commit()
+
+
+def load_users():
+    """Load users."""
+
+    print "Users"
+
+    # Delete all rows in table, so if we need to run this a second time,
+    # we won't be trying to add duplicate users
+    User.query.delete()
+
+    demo = User(user_id=1,
+                   email='demo@demo.com',
+                   password='123')
+
+    # We need to add to the session or it won't ever be stored
+    db.session.add(demo)
+
+    # Once we're done, we should commit our work
     db.session.commit()
 
 
