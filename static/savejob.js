@@ -24,7 +24,7 @@ $(function () {
     var data = {'id': id, 'saved': saved};
     console.log(data);
 
-    $.post("/processfavorite.json", data, addToSavedJobs);
+    $.post("/processsave.json", data, addToSavedJobs);
   });
 });
 

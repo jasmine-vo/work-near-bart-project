@@ -25,11 +25,15 @@
 
   {% if 'user_id' in session %}
 
-  <form action="/logout" method="POST">
-    <button type="submit">Logout</button>
-  </form>
+    <form action="/logout" method="POST">
+      <button type="submit">Logout</button>
+    </form>
+    <a href="/savedjobs">Saved Jobs</a>
+    
     {% else %}
+    
     <a href="/login">Login</a> | <a href="/register">Register</a>
+  
   {% endif %}
   {% block body %}
 

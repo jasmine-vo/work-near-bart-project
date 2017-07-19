@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block head %}
+
+
+{% endblock %}
+{% block body %}
+<p>
+  {% if user.favorites %}
+    {% for favorite in user.favorites %}
+    <ul>
+        <li>{{ favorite.job.title }} {{ favorite.job.business.name }}</li>
+    </ul>
+    {% endfor %}
+  {% else %}
+    No saved jobs
+  {% endif %}
+
+{% endblock %}

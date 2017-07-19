@@ -192,9 +192,9 @@ def display_saved_jobs():
                             favorites=favorites)
 
 
-@app.route('/processfavorite.json', methods=["POST"])
+@app.route('/processsave.json', methods=["POST"])
 def process_favorite():
-    """Add/Update favorite."""
+    """Add/Update saved jobs."""
 
     job_id = request.form.get("id")
 
