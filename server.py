@@ -206,13 +206,13 @@ def process_favorite():
 
         db.session.delete(favorite)
 
-        response = { 'status': "unfavorited", 'id': job_id }
+        response = { 'status': "not-saved", 'id': job_id }
 
     else:
         favorite = Favorite(user_id=user_id, job_id=job_id)
         db.session.add(favorite)
 
-        response = { 'status': "favorited", 'id': job_id }
+        response = { 'status': "saved", 'id': job_id }
 
     db.session.commit()
 

@@ -6,3 +6,11 @@
     width: 600px;
     height: 600px;
 }
+
+.saved {
+    color: red;
+}
+
+.not-saved {
+    color: gray;
+}

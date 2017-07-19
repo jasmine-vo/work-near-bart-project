@@ -3,7 +3,7 @@
 
   <link href="/static/results.css" rel="stylesheet">
   <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="/static/favorites.js"></script>
+    <script src="/static/savejob.js"></script>
   <script src="/static/companymap.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps }}&callback=initMap">
   </script>
@@ -57,17 +57,11 @@
         Glassdoor Rating: <a href="{{ job[11] }}">{{ job[9] }}</a> | Industry: {{ job[10] }}<br>
 
           {% if 'user_id' in session %}
-          <button class="favorite-btn"
-              {% if job[12] in favorites %}
-                  style="color: grey;"
-                  data-favorited="yes"
-
+            {% if job[12] in favorites %}
+          <button name="save-job" id="{{ job[12] }}" class="saved">Save</button>
               {% else %}
-                  data-favorited="no"
-              {% endif %}
-           id="{{ job[12] }}">
-                  <b>Save</b>
-          </button>
+          <button name="save-job" id="{{ job[12] }}" class="not-saved">Save</button>
+            {% endif %}
 
           {% endif %}
         </div>  
