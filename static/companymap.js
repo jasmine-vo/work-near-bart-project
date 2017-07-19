@@ -16,6 +16,9 @@ function initMap() {
 
   $.get('/results.json', function (job_listings) {
 
+    // set up empty bounds
+    var bounds = new google.maps.LatLngBounds();
+
     var job, marker, jobLatitude, jobLongitude;
     console.log(job_listings);
     for (var key in job_listings) {
@@ -56,7 +59,12 @@ function initMap() {
 
         calculateAndDisplayRoute(directionsService, directionsDisplay, position, stationPosition);
       });
-    } 
+
+      // add each marker to bounds 
+      bounds.extend(marker.getPosition());
+    }
+    // fit map to bounds
+    map.fitBounds(bounds);
   });    
 }
 

@@ -10,7 +10,7 @@
   {% if user.favorites %}
     {% for favorite in user.favorites %}
       <div id="{{ favorite.job_id }}">
-        <a href="{{ favorite.job.url }}"><b>{{ favorite.job.title }}</b></a>, {{ favorite.job.business.name }} <button id="{{ favorite.job_id }}" name="unsave-job" class="not-saved"><span class="glyphicon glyphicon-remove"></span></button></li>
+        <a href="{{ favorite.job.url }}"><b>{{ favorite.job.title }}</b></a>, {{ favorite.job.business.name }} | Posted: {{ favorite.job.duration_posted }} <button id="{{ favorite.job_id }}" name="unsave-job" class="not-saved"><span class="glyphicon glyphicon-remove"></span></button></li>
       </div>
     {% endfor %}
   {% else %}
