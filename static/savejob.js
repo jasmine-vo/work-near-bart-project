@@ -28,3 +28,23 @@ $(function () {
   });
 });
 
+$(function () {
+  function removeSavedJobs(results) {
+
+    var id = results.id;
+    var unsaved = results.status;
+
+    $('div').remove('#' + id);
+  }
+
+  $('button[name=unsave-job]').on('click', function (evt) {
+    var id = this.id;
+    var unsaved = this.className;
+    var data = {'id': id, 'unsaved': unsaved};
+    console.log(data);
+
+    $.post("/processsave.json", data, removeSavedJobs);
+  });
+});
+
+
