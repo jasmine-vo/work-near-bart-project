@@ -67,7 +67,9 @@ def get_job_results(selected_station, title, within_age):
                                         Business.glassdoor_url,
                                         Job.job_id,
                                         Business.latitude,
-                                        Business.longitude)
+                                        Business.longitude,
+                                        Bart.latitude,
+                                        Bart.longitude)
                         .join(Business)
                         .join(Bart)
                         .filter(Job.title.ilike('%{}%'.format(title)),
@@ -91,7 +93,9 @@ def get_job_results(selected_station, title, within_age):
                                         Business.glassdoor_url,
                                         Job.job_id,
                                         Business.latitude,
-                                        Business.longitude)
+                                        Business.longitude,
+                                        Bart.latitude,
+                                        Bart.longitude)
                         .join(Business)
                         .join(Bart)
                         .filter(Job.title.ilike('%{}%'.format(title)),

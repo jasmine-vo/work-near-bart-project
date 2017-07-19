@@ -52,6 +52,7 @@ def display_results(page_num):
 
     session['current_page_results'] = current_page_results
     
+    print session['current_page_results']
     num_results = len(job_results)
 
     # calcuates number of page links to create
@@ -107,7 +108,10 @@ def get_job_listings():
             'jobCompany': row[2],
             'jobTitle': row[1],
             'jobLatitude': row[13],
-            'jobLongitude': row[14]
+            'jobLongitude': row[14],
+            'stationName': row[5],
+            'stationLatitude': row[15],
+            'stationLongitude': row[16]
         }
         for row in session['current_page_results']}
 

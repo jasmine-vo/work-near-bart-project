@@ -114,7 +114,86 @@ class Favorite(db.Model):
         s = "<Favorite favorite_id=%s job_id=%s user_id=%s>"
         return s % (self.favorite_id, self.job_id, self.user_id)
 
-        
+
+# def example_data():
+#     """Create sample data"""
+
+#     Bart.query.delete()
+#     Business.query.delete()
+#     Job.query.delete()
+#     User.query.delete()
+#     Favorite.query.delete()
+
+#     emb = Bart(station_code="EMBR",
+#                        name="Embarcadero",
+#                        address="",
+#                        city="San Francisco",
+#                        state="CA",
+#                        zipcode="",
+#                        latitude="",
+#                        longitude="")
+
+#     mon = Bart(station_code="MONT",
+#                        name="Montgomery",
+#                        address="",
+#                        city="San Francisco",
+#                        state="CA",
+#                        zipcode="",
+#                        latitude="",
+#                        longitude="")
+
+#     google = Business(business_id=1,
+#                       name="Google",
+#                       address="345 Spear St",
+#                       latitude="37.790052",
+#                       longitude="-122.390184",
+#                       distance="0.5 mi",
+#                       duration="11 mins",
+#                       logo_url="https://media.glassdoor.com/sqll/9079/google-squarelogo-1441130773284.png",
+#                       rating="4.4",
+#                       industry="Information Technology",
+#                       glassdoor_url="http://www.glassdoor.com/Reviews/Employee-Review-Google-RVW15868147.htm",
+#                       station_code="EMBR")
+
+#     udacity = Business(business_id=2,
+#                       name="Udacity",
+#                       address="653 Harrison St",
+#                       latitude="37.783158",
+#                       longitude="-122.396115",
+#                       distance="0.6 mi",
+#                       duration="13 mins",
+#                       logo_url="https://media.glassdoor.com/sqll/659776/udacity-squarelogo-1458083545831.png",
+#                       rating="4.5",
+#                       industry="Education",
+#                       glassdoor_url="https://www.glassdoor.com/Reviews/san-francisco-udacity-reviews-SRCH_IL.0,13_IM759_KE14,21.htm",
+#                       station_code="MONT")
+
+#     se = Job(job_id=1,
+#             title="Software Engineer",
+#             url="http://www.indeed.com/rc/clk?jk=ac95291e795c6aab",
+#             date_posted=,
+#             duration_posted=
+#             business_id=1)
+
+#     se2 = Job(job_id=2,
+#             title="Software Engineer, Growth",
+#             url="http://www.indeed.com/rc/clk?jk=d3850706e430f9f5",
+#             date_posted=,
+#             duration_posted=
+#             business_id=2)
+
+#     test_user = User(user_id=1,
+#                      email="test@test.com",
+#                      password="test")
+
+#     favorite = Favorite(favorite_id=1,
+#                         job_id=1,
+#                         user_id=1)
+
+#     db.session.add_all([emb, mon, google, udacity, se, se2, test_user, favorite])
+#     db.session.commit()
+
+
 ##############################################################################
 
 
