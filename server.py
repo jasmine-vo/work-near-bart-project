@@ -127,7 +127,7 @@ def login_in_process():
 
         return redirect('/')
     else:
-        flash("Wrong email or password!")
+        flash("Wrong email or password! Please register if you are a new user.")
         return redirect("/login")
 
 
@@ -137,6 +137,36 @@ def log_out_process():
 
     del session['user_id']
     flash('Logged out.')
+
+    return redirect('/')
+
+
+@app.route("/register")
+def register_form():
+    """Display register form."""
+
+    return render_template("register_form.html")
+
+
+@app.route('/register', methods=["POST"])
+def register_process():
+    """Process form."""
+
+    password = request.form.get("password")
+    user_email = request.form.get("email")
+
+    if User.query.filter_by(email=user_email).first() is None:
+        flash('Thank you for registering! Please log-in.')
+
+        user = User(email=user_email,
+                    password=password)
+
+
+        db.session.add(user)
+        db.session.commit()
+
+    else:
+        flash('You already have an account.')
 
     return redirect('/')
 

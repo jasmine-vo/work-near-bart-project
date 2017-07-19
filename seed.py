@@ -199,11 +199,36 @@ def set_val_business_id():
     result = db.session.query(func.max(Business.business_id)).one()
     max_id = int(result[0])
 
-    # Set the value for the next user_id to be max_id + 1
+    # Set the value for the next business_id to be max_id + 1
     query = "SELECT setval('businesses_business_id_seq', :new_id)"
     db.session.execute(query, {'new_id': max_id + 1})
     db.session.commit()
 
+
+def set_val_job_id():
+    """Set value for the next job_id after seeding database"""
+
+    # Get the Max job_id in the database
+    result = db.session.query(func.max(Job.job_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next job_id to be max_id + 1
+    query = "SELECT setval('jobs_job_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
+
+
+def set_val_user_id():
+    """Set value for the next user_id after seeding database"""
+
+    # Get the Max user_id in the database
+    result = db.session.query(func.max(User.user_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('users_user_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
 
 if __name__ == "__main__":
     connect_to_db(app)
@@ -217,3 +242,5 @@ if __name__ == "__main__":
     load_jobs()
     load_users()
     set_val_business_id()
+    set_val_user_id()
+    set_val_job_id()
