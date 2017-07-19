@@ -3,6 +3,7 @@
 
   <link href="/static/results.css" rel="stylesheet">
   <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/static/favorites.js"></script>
   <script src="/static/companymap.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps }}&callback=initMap">
   </script>
@@ -54,6 +55,21 @@
         Posted: {{ job[3] }} - {{ job [4] }}<br>
         BART Station: {{ job [5] }} | Distance: {{ job[6] }} | Walking Time: ~{{ job[7] }}<br>
         Glassdoor Rating: <a href="{{ job[11] }}">{{ job[9] }}</a> | Industry: {{ job[10] }}<br>
+
+          {% if 'user_id' in session %}
+          <button class="favorite-btn"
+              {% if job[12] in favorites %}
+                  style="color: grey;"
+                  data-favorited="yes"
+
+              {% else %}
+                  data-favorited="no"
+              {% endif %}
+           id="{{ job[12] }}">
+                  <b>Save</b>
+          </button>
+
+          {% endif %}
         </div>  
       </div>
     {% endfor %}

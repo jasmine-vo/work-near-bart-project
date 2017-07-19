@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, session, jsonify, flash
 from flask_debugtoolbar import DebugToolbarExtension
-from model import Bart, Business, Job, User, connect_to_db, db
+from model import Bart, Business, Job, User, Favorite, connect_to_db, db
 from functions import get_job_results
 import datetime
 from math import ceil
@@ -50,6 +50,8 @@ def display_results(page_num):
     # uses current page number and display per page to slice results for pagination
     current_page_results = job_results[int(page_num) * display_per_page - display_per_page : int(page_num) * display_per_page]
 
+    session['current_page_results'] = current_page_results
+    
     num_results = len(job_results)
 
     # calcuates number of page links to create
@@ -57,6 +59,12 @@ def display_results(page_num):
         num_pages = int(ceil(num_results / float(display_per_page)))
     else:
         num_pages = 1
+
+    if 'user_id' in session:
+        favorites = db.session.query(Favorite.job_id).filter(Favorite.user_id==session['user_id']).all()
+        favorites = [fav[0] for fav in favorites]
+    else:
+        favorites = None
 
     return render_template("results.html",
                             num_pages=int(num_pages),
@@ -67,7 +75,8 @@ def display_results(page_num):
                             selected_station=selected_station,
                             age=age,
                             stations=stations,
-                            gmaps=gmaps)
+                            gmaps=gmaps,
+                            favorites=favorites)
 
 
 @app.route('/stations.json')
@@ -93,15 +102,14 @@ def get_station_info():
 def get_job_listings():
     """Return job results on current page in JSON format."""
 
-    job_listings = {}
-
-    for row in session['current_page_results']:
-        job_listings[row[14]] = {
-            'jobCompany': row[3],
-            'jobTitle': row[2],
-            'jobLatitude': row[12],
-            'jobLongitude': row[13]
+    job_listings = {   
+        row[12]: {
+            'jobCompany': row[2],
+            'jobTitle': row[1],
+            'jobLatitude': row[13],
+            'jobLongitude': row[14]
         }
+        for row in session['current_page_results']}
 
     return jsonify(job_listings)
 
@@ -169,6 +177,46 @@ def register_process():
         flash('You already have an account.')
 
     return redirect('/')
+
+
+@app.route('/savedjobs')
+def display_saved_jobs():
+    """Displays the user's saved jobs."""
+
+    user = User.query.filter_by(user_id=session['user_id']).first()
+
+    favorites = db.session.query(Favorite.job_id).filter(Favorite.user_id==session['user_id']).all()
+
+    return render_template('saved_jobs.html',
+                            user=user,
+                            favorites=favorites)
+
+
+@app.route('/processfavorite.json', methods=["POST"])
+def process_favorite():
+    """Add/Update favorite."""
+
+    job_id = request.form.get("id")
+
+    user_id = session.get("user_id")
+
+    favorite = Favorite.query.filter_by(user_id=user_id, job_id=job_id).first()
+
+    if favorite is not None:
+
+        db.session.delete(favorite)
+
+        response = { 'status': "unfavorited", 'id': job_id }
+
+    else:
+        favorite = Favorite(user_id=user_id, job_id=job_id)
+        db.session.add(favorite)
+
+        response = { 'status': "favorited", 'id': job_id }
+
+    db.session.commit()
+
+    return jsonify(response)
 
 
 if __name__ == "__main__":
