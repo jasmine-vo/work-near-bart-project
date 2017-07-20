@@ -7,14 +7,14 @@
 {% endblock %}
 {% block body %}
 <p>
-  {% if user.favorites %}
-    {% for favorite in user.favorites %}
-      <div id="{{ favorite.job_id }}">
-        <a href="{{ favorite.job.url }}"><b>{{ favorite.job.title }}</b></a>, {{ favorite.job.business.name }} | Posted: {{ favorite.job.duration_posted }} <button id="{{ favorite.job_id }}" name="unsave-job" class="not-saved"><span class="glyphicon glyphicon-remove"></span></button></li>
+  {% if user.saved %}
+    {% for save in user.saved %}
+      <div id="{{ save.job_key }}">
+        <a href="{{ save.job.url }}"><b>{{ save.job.title }}</b></a>, {{ save.job.business.name }} | Posted: {{ save.job.duration_posted }} <button id="{{ save.job_key }}" name="unsave-job" class="not-saved"><span class="glyphicon glyphicon-remove"></span></button></li>
       </div>
     {% endfor %}
   {% else %}
-    No saved jobs
+    You haven't saved any jobs yet.
   {% endif %}
 
 {% endblock %}

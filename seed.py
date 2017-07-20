@@ -1,6 +1,6 @@
 from sqlalchemy import func
 from model import Bart, Business, Job, User, connect_to_db, db
-from functions import get_stations, call_indeed, get_distance, get_company_info
+from api_functions import get_stations, call_indeed, get_distance, get_company_info
 from math import ceil
 from server import app
 import datetime
@@ -80,8 +80,7 @@ def load_businesses():
 
                 glassdoor_url = None
 
-            business = Business(business_id=business_id,
-                                name=name,
+            business = Business(name=name,
                                 address=address,
                                 latitude=latitude,
                                 longitude=longitude,
@@ -95,8 +94,7 @@ def load_businesses():
 
         else:
 
-            business = Business(business_id=business_id,
-                                name=name,
+            business = Business(name=name,
                                 address=address,
                                 latitude=latitude,
                                 longitude=longitude,
@@ -150,17 +148,16 @@ def load_jobs():
                     for job in results:
                         job['business_id'] = company[0]
                         job_results.append(job)
-    job_id = 0
 
     for result in job_results:
-        job_id += 1
-        url = 'http://www.indeed.com/rc/clk?jk={}'.format(result.get('jobkey'))
+        job_key = result.get('jobkey')
+        url = 'http://www.indeed.com/rc/clk?jk={}'.format(result.get('job_key'))
         title = result.get('jobtitle')
         date_posted = datetime.datetime.strptime(result.get('date'), '%a, %d %b %Y %H:%M:%S %Z')
         duration_posted = result.get('formattedRelativeTime')
         business_id = result.get('business_id')
 
-        job = Job(job_id=job_id,
+        job = Job(job_key=job_key,
                   url=url,
                   title=title,
                   date_posted=date_posted,
@@ -169,6 +166,19 @@ def load_jobs():
 
         db.session.add(job)
 
+    db.session.commit()
+
+
+def set_val_business_id():
+    """Set value for the next business_id after seeding database"""
+
+    # Get the Max business_id in the database
+    result = db.session.query(func.max(Business.business_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next business_id to be max_id + 1
+    query = "SELECT setval('businesses_business_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
     db.session.commit()
 
 
@@ -192,32 +202,6 @@ def load_users():
     db.session.commit()
 
 
-def set_val_business_id():
-    """Set value for the next business_id after seeding database"""
-
-    # Get the Max business_id in the database
-    result = db.session.query(func.max(Business.business_id)).one()
-    max_id = int(result[0])
-
-    # Set the value for the next business_id to be max_id + 1
-    query = "SELECT setval('businesses_business_id_seq', :new_id)"
-    db.session.execute(query, {'new_id': max_id + 1})
-    db.session.commit()
-
-
-def set_val_job_id():
-    """Set value for the next job_id after seeding database"""
-
-    # Get the Max job_id in the database
-    result = db.session.query(func.max(Job.job_id)).one()
-    max_id = int(result[0])
-
-    # Set the value for the next job_id to be max_id + 1
-    query = "SELECT setval('jobs_job_id_seq', :new_id)"
-    db.session.execute(query, {'new_id': max_id + 1})
-    db.session.commit()
-
-
 def set_val_user_id():
     """Set value for the next user_id after seeding database"""
 
@@ -238,9 +222,11 @@ if __name__ == "__main__":
 
     # Import different types of data
     load_stations()
-    load_businesses()
-    load_jobs()
     load_users()
-    set_val_business_id()
     set_val_user_id()
-    set_val_job_id()
+    load_businesses()
+    set_val_business_id()
+    load_jobs()
+
+    
+    

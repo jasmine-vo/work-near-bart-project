@@ -22,7 +22,7 @@
     {% endfor %}
   </select>
 
-  <select name="age">
+  <select name="days">
     <option value="999">anytime</option>
     <option value="1">since yesterday</option>
     <option value="3">within 3 days</option>
@@ -42,7 +42,7 @@
   <input type="submit">
 
 </form>
-
+<button id="reset-map">Reset Map
 <div id="companymap"></div>
 
   {% if current_page_results %}
@@ -57,7 +57,7 @@
         Glassdoor Rating: <a href="{{ job[11] }}">{{ job[9] }}</a> | Industry: {{ job[10] }}<br>
 
           {% if 'user_id' in session %}
-            {% if job[12] in favorites %}
+            {% if job[12] in saved_jobs %}
           <button name="save-job" id="{{ job[12] }}" class="saved">Save</button>
               {% else %}
           <button name="save-job" id="{{ job[12] }}" class="not-saved">Save</button>
@@ -85,7 +85,7 @@
             <li class="page-item">
           {% endif %}
 
-          <a class="page-link" href="/results/{{ page }}?title={{ title }}&station={{ selected_station }}&age={{ age }}&display={{ display_per_page }}">{{ page }}</a>
+          <a class="page-link" href="/results/{{ page }}?title={{ title }}&station={{ selected_station }}&days={{ days }}&display={{ display_per_page }}">{{ page }}</a>
             </li>
 
         {% endfor %}

@@ -1,9 +1,10 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, session, jsonify, flash
 from flask_debugtoolbar import DebugToolbarExtension
-from model import Bart, Business, Job, User, Favorite, connect_to_db, db
-from functions import get_job_results
+from model import Bart, Business, Job, User, Save, connect_to_db, db
+from api_functions import get_job_results
 import datetime
+from functions import *
 from math import ceil
 import os
 
@@ -20,7 +21,7 @@ gmaps = os.environ['GOOGLE_MAPS_KEY']
 def index():
     """Homepage."""
     
-    stations = db.session.query(Bart.station_code, Bart.name, Bart.latitude, Bart.longitude).all()
+    stations = get_stations_from_db()
 
     return render_template("homepage.html",
                             stations=stations,
@@ -31,41 +32,35 @@ def index():
 def display_results(page_num):
     """Displays job results."""
 
-    stations = db.session.query(Bart.station_code, Bart.name, Bart.latitude, Bart.longitude).all()
+    stations = get_stations_from_db()
 
     title = '%'.join(request.args.get('title').split())
-
     selected_station = request.args.get('station')
-
     display_per_page = int(request.args.get('display'))
+    days = int(request.args.get('days'))
 
-    age = int(request.args.get('age'))
+    # Calculates the datetime by getting the current time and subtracts the
+    # number of days selected by the user
+    within_age = datetime.datetime.utcnow() - datetime.timedelta(days=days)
 
-    current_time = datetime.datetime.utcnow()
-
-    within_age = current_time - datetime.timedelta(days=age)
-
+    # Gets a list of all job results returned based on the User's search criteria
     job_results = get_job_results(selected_station, title, within_age)
 
-    # uses current page number and display per page to slice results for pagination
-    current_page_results = job_results[int(page_num) * display_per_page - display_per_page : int(page_num) * display_per_page]
+    # Uses current page number and display per page to slice results for pagination
+    current_page_results = get_current_page_results(job_results, page_num, display_per_page)
 
+    # Saves the current page results to session to JSONify for Google Map markers
     session['current_page_results'] = current_page_results
     
-    print session['current_page_results']
-    num_results = len(job_results)
+    # Calcuates number of page links to create
+    num_pages = get_num_pages(len(job_results), display_per_page)
 
-    # calcuates number of page links to create
-    if num_results > display_per_page:
-        num_pages = int(ceil(num_results / float(display_per_page)))
-    else:
-        num_pages = 1
-
+    # If the user is logged in, gets a list of their saved jobs.
     if 'user_id' in session:
-        favorites = db.session.query(Favorite.job_id).filter(Favorite.user_id==session['user_id']).all()
-        favorites = [fav[0] for fav in favorites]
+        saved_jobs = get_saved_from_db(session.get('user_id'))
+
     else:
-        favorites = None
+        saved_jobs = None
 
     return render_template("results.html",
                             num_pages=int(num_pages),
@@ -74,15 +69,15 @@ def display_results(page_num):
                             display_per_page=display_per_page,
                             title=title,
                             selected_station=selected_station,
-                            age=age,
+                            days=days,
                             stations=stations,
                             gmaps=gmaps,
-                            favorites=favorites)
+                            saved_jobs=saved_jobs)
 
 
 @app.route('/stations.json')
 def get_station_info():
-    """JSON information about stations"""
+    """Returns BART station information in JSON format."""
 
     stations = {
         station.station_code: {
@@ -132,15 +127,28 @@ def login_in_process():
     user_password = request.form.get("password")
     user_email = request.form.get("email")
 
-    if User.query.filter_by(email=user_email, password=user_password).first():
-        user_id = User.query.filter_by(email=user_email).first().user_id
-        flash('Logged in.')
-        session['user_id'] = user_id
+    # Checks if user email entered is in database.
+    user = User.query.filter(User.email == user_email).first()
 
-        return redirect('/')
+    # If the user exists, checks if the password entered matches.
+    if user:
+
+        if user_password == user.password:
+            user_id = user.user_id
+            session['user_id'] = user_id
+            flash('You are logged in as {}.'.format(user_email))
+
+            return redirect('/')
+
+        else:
+            flash('Incorrect email or password.')
+
+            return redirect('/login')
+
     else:
-        flash("Wrong email or password! Please register if you are a new user.")
-        return redirect("/login")
+        flash('That email does not exist.  Please register if you are a new user.')
+        
+        return redirect('/login')
 
 
 @app.route('/logout', methods=["POST"])
@@ -167,6 +175,8 @@ def register_process():
     password = request.form.get("password")
     user_email = request.form.get("email")
 
+    # Checks if the email already exists in the database.
+    # If not, adds the user as a new user in the database.
     if User.query.filter_by(email=user_email).first() is None:
         flash('Thank you for registering! Please log-in.')
 
@@ -178,7 +188,7 @@ def register_process():
         db.session.commit()
 
     else:
-        flash('You already have an account.')
+        flash('An account already exists with that email.')
 
     return redirect('/')
 
@@ -187,36 +197,37 @@ def register_process():
 def display_saved_jobs():
     """Displays the user's saved jobs."""
 
-    user = User.query.filter_by(user_id=session['user_id']).first()
+    user = User.query.filter_by(user_id=session.get('user_id')).first()
 
-    favorites = db.session.query(Favorite.job_id).filter(Favorite.user_id==session['user_id']).all()
+    saved = db.session.query(Save.job_key).filter(Save.user_id==session.get('user_id')).all()
 
     return render_template('saved_jobs.html',
                             user=user,
-                            favorites=favorites)
+                            saved=saved)
 
 
 @app.route('/processsave.json', methods=["POST"])
-def process_favorite():
-    """Add/Update saved jobs."""
+def process_save():
+    """Add/Update saved jobs, and sends result in JSON format."""
 
-    job_id = request.form.get("id")
-
+    job_key = request.form.get("id")
     user_id = session.get("user_id")
 
-    favorite = Favorite.query.filter_by(user_id=user_id, job_id=job_id).first()
+    # Checks if the job was already favorited by the user.
+    saved = Save.query.filter_by(user_id=user_id, job_key=job_key).first()
 
-    if favorite is not None:
+    # If the job was already favorited, deletes the saved job from the database.
+    # Otherwise, adds the job to the database as a new saved job.
+    if saved is not None:
+        db.session.delete(saved)
 
-        db.session.delete(favorite)
-
-        response = { 'status': "not-saved", 'id': job_id }
+        response = { 'status': "not-saved", 'id': job_key }
 
     else:
-        favorite = Favorite(user_id=user_id, job_id=job_id)
-        db.session.add(favorite)
+        saved = Save(user_id=user_id, job_key=job_key)
+        db.session.add(saved)
 
-        response = { 'status': "saved", 'id': job_id }
+        response = { 'status': "saved", 'id': job_key }
 
     db.session.commit()
 
