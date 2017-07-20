@@ -36,7 +36,6 @@ function CenterControl(controlDiv, map) {
   });
 }
 
-
 function initMap() {
 
   // Creates new map
