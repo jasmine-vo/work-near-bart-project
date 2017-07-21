@@ -10,7 +10,7 @@
   {% if user.saved %}
     {% for save in user.saved %}
       <div id="{{ save.job_key }}">
-        <a href="{{ save.job.url }}"><b>{{ save.job.title }}</b></a>, {{ save.job.business.name }} | Posted: {{ save.job.duration_posted }} <button id="{{ save.job_key }}" name="unsave-job" class="not-saved"><span class="glyphicon glyphicon-remove"></span></button></li>
+        <a href="{{ save.job.url }}"><b>{{ save.job.title }}</b></a>, {{ save.job.business.business_name }} | Posted: {{ save.job.duration_posted }} <button id="{{ save.job_key }}" name="unsave-job" class="not-saved"><span class="glyphicon glyphicon-remove"></span></button></li>
       </div>
     {% endfor %}
   {% else %}

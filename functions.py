@@ -5,7 +5,7 @@ def get_stations_from_db():
     """Returns query that returns all bart stations including the code, name,
     latitude, and longitude."""
 
-    return db.session.query(Bart.station_code, Bart.name, Bart.latitude, Bart.longitude).all()
+    return db.session.query(Bart.station_code, Bart.station_name, Bart.station_latitude, Bart.station_longitude).all()
 
 
 def get_current_page_results(job_results, page_num, display_per_page):

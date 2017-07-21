@@ -34,8 +34,6 @@
   <select name="display">
     <option value="10">10 per page</option>
     <option value="25">25 per page</option>
-    <option value="50">50 per page</option>
-    <option value="100">100 per page</option>
   </select>
 
   <input type="submit">
@@ -44,22 +42,22 @@
 </div>
 <div id="companymap"></div>
 
-  {% if current_page_results %}
-    {% for job in current_page_results %}
+  {% if job_results %}
+    {% for job in job_results[page_num * display_per_page - display_per_page : page_num * display_per_page] %}
       <div class="media">
-        <img class="pull-left" src="{{ job[8] }}">
+        <img class="pull-left" src="{{ job.logo_url }}">
         <div class="media-body">
-        <a href="{{ job[0] }}">{{ job[1] }}</a></h5><br>
-        {{ job[2] }}<br>
-        Posted: {{ job[3] }} - {{ job [4] }}<br>
-        BART Station: {{ job [5] }} | Distance: {{ job[6] }} | Walking Time: ~{{ job[7] }}<br>
-        Glassdoor Rating: <a href="{{ job[11] }}">{{ job[9] }}</a> | Industry: {{ job[10] }}<br>
+        <a href="{{ job.url }}">{{ job.title }}</a></h5><br>
+        {{ job.business_name }}<br>
+        Posted: {{ job.date_posted }} - {{ job.duration_posted }}<br>
+        BART Station: {{ job.station_name }} | Distance: {{ job.distance }} | Walking Time: ~{{ job.duration }}<br>
+        Glassdoor Rating: <a href="{{ job.glassdoor_url }}">{{ job.rating }}</a> | Industry: {{ job.industry }}<br>
 
           {% if 'user_id' in session %}
-            {% if job[12] in saved_jobs %}
-          <button name="save-job" id="{{ job[12] }}" class="saved">Save</button>
+            {% if job.job_key in saved_jobs %}
+          <button name="save-job" id="{{ job.job_key }}" class="saved">Save</button>
               {% else %}
-          <button name="save-job" id="{{ job[12] }}" class="not-saved">Save</button>
+          <button name="save-job" id="{{ job.job_key }}" class="not-saved">Save</button>
             {% endif %}
 
           {% endif %}

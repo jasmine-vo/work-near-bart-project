@@ -9,18 +9,18 @@ class Bart(db.Model):
     __tablename__ = "stations"
 
     station_code = db.Column(db.String(4), primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    address = db.Column(db.String(50), nullable=False)
-    city = db.Column(db.String(50), nullable=False)
-    state = db.Column(db.String(2), nullable=False)
-    zipcode = db.Column(db.String(5), nullable=False)
-    latitude = db.Column(db.String(15), nullable=False)
-    longitude = db.Column(db.String(15), nullable=False)
+    station_name = db.Column(db.String(50), nullable=False)
+    station_address = db.Column(db.String(50), nullable=False)
+    station_city = db.Column(db.String(50), nullable=False)
+    station_state = db.Column(db.String(2), nullable=False)
+    station_zipcode = db.Column(db.String(5), nullable=False)
+    station_latitude = db.Column(db.String(15), nullable=False)
+    station_longitude = db.Column(db.String(15), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Bart station_code=%s name=%s>" % (self.station_code, self.name)
+        return "<Bart station_code=%s station_name=%s>" % (self.station_code, self.station_name)
 
 
 class Business(db.Model):
@@ -29,10 +29,10 @@ class Business(db.Model):
     __tablename__ = "businesses"
 
     business_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    address = db.Column(db.String(50), nullable=False)
-    latitude = db.Column(db.String(15), nullable=False)
-    longitude = db.Column(db.String(15), nullable=False)
+    business_name = db.Column(db.String(50), nullable=False)
+    business_address = db.Column(db.String(50), nullable=False)
+    business_latitude = db.Column(db.String(15), nullable=False)
+    business_longitude = db.Column(db.String(15), nullable=False)
     distance = db.Column(db.String(10), nullable=False)
     duration = db.Column(db.String(10), nullable=False)
     logo_url = db.Column(db.String(200), nullable=True)
@@ -46,9 +46,9 @@ class Business(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        s = "<Business business_id=%s name=%s station_code=%s>"
+        s = "<Business business_id=%s business_name=%s station_code=%s>"
         return s % (self.business_id,
-                    self.name,
+                    self.business_name,
                     self.station_code)
 
 
@@ -126,34 +126,34 @@ def example_data():
     Bart.query.delete()
 
     emb = Bart(station_code="EMBR",
-               name="Embarcadero",
-               address="298 Market Street",
-               city="San Francisco",
-               state="CA",
-               zipcode="94111",
-               latitude="37.792874",
-               longitude="-122.397020")
+               station_name="Embarcadero",
+               station_address="298 Market Street",
+               station_city="San Francisco",
+               station_state="CA",
+               station_zipcode="94111",
+               station_latitude="37.792874",
+               station_longitude="-122.397020")
 
     db.session.add(emb)
 
     mon = Bart(station_code="MONT",
-               name="Montgomery",
-               address="598 Market Street",
-               city="San Francisco",
-               state="CA",
-               zipcode="94104",
-               latitude="37.789405",
-               longitude="-122.401066")
+               station_name="Montgomery",
+               station_address="598 Market Street",
+               station_city="San Francisco",
+               station_state="CA",
+               station_zipcode="94104",
+               station_latitude="37.789405",
+               station_longitude="-122.401066")
 
     db.session.add(mon)
 
     db.session.commit()
 
     abc = Business(business_id=1,
-                    name="ABC, Inc.",
-                    address="345 Spear St",
-                    latitude="37.790052",
-                    longitude="-122.390184",
+                    business_name="ABC, Inc.",
+                    business_address="345 Spear St",
+                    business_latitude="37.790052",
+                    business_longitude="-122.390184",
                     distance="0.5 mi",
                     duration="11 mins",
                     logo_url="https://media.glassdoor.com/sqll/9079/google-squarelogo-1441130773284.png",
@@ -165,10 +165,10 @@ def example_data():
     db.session.add(abc)
 
     test = Business(business_id=2,
-                    name="Test Company",
-                    address="653 Harrison St",
-                    latitude="37.783158",
-                    longitude="-122.396115",
+                    business_name="Test Company",
+                    business_address="653 Harrison St",
+                    business_latitude="37.783158",
+                    business_longitude="-122.396115",
                     distance="0.6 mi",
                     duration="13 mins",
                     logo_url="https://media.glassdoor.com/sqll/659776/udacity-squarelogo-1458083545831.png",

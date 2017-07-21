@@ -65,6 +65,7 @@ def display_results(page_num):
     return render_template("results.html",
                             num_pages=int(num_pages),
                             page_num=int(page_num),
+                            job_results=job_results,
                             current_page_results=current_page_results,
                             display_per_page=display_per_page,
                             title=title,
@@ -81,13 +82,13 @@ def get_station_info():
 
     stations = {
         station.station_code: {
-            'stationName': station.name,
-            'stationAddress': station.address,
-            'stationCity': station.city,
-            'stationState': station.state,
-            'stationZipcode': station.zipcode,
-            'stationLatitude': station.latitude,
-            'stationLongitude': station.longitude,
+            'stationName': station.station_name,
+            'stationAddress': station.station_address,
+            'stationCity': station.station_city,
+            'stationState': station.station_state,
+            'stationZipcode': station.station_zipcode,
+            'stationLatitude': station.station_latitude,
+            'stationLongitude': station.station_longitude,
         }
         for station in Bart.query.all()}
 
@@ -235,7 +236,7 @@ def process_save():
 
 
 if __name__ == "__main__":
-    app.debug = False
+    app.debug = True
     
     app.jinja_env.auto_reload = app.debug
 

@@ -28,13 +28,13 @@ def load_stations():
         longitude = station.get('gtfs_longitude')
 
         station = Bart(station_code=station_code,
-                       name=name,
-                       address=address,
-                       city=city,
-                       state=state,
-                       zipcode=zipcode,
-                       latitude=latitude,
-                       longitude=longitude)
+                       station_name=name,
+                       station_address=address,
+                       station_city=city,
+                       station_state=state,
+                       station_zipcode=zipcode,
+                       station_latitude=latitude,
+                       station_longitude=longitude)
 
         db.session.add(station)
 
@@ -52,7 +52,7 @@ def load_businesses():
         row = row.rstrip()
         business_id, name, address, latitude, longitude, station_code = row.split('|')
         
-        station_latlong = db.session.query(Bart.latitude, Bart.longitude).filter(Bart.station_code==station_code).first()
+        station_latlong = db.session.query(Bart.station_latitude, Bart.station_longitude).filter(Bart.station_code==station_code).first()
 
         distance_results = get_distance('{},{}'.format(station_latlong[0], station_latlong[1]), '{},{}'.format(latitude, longitude))
 
@@ -80,10 +80,10 @@ def load_businesses():
 
                 glassdoor_url = None
 
-            business = Business(name=name,
-                                address=address,
-                                latitude=latitude,
-                                longitude=longitude,
+            business = Business(business_name=name,
+                                business_address=address,
+                                business_latitude=latitude,
+                                business_longitude=longitude,
                                 distance=distance,
                                 duration=duration,
                                 logo_url=logo_url,
@@ -94,10 +94,10 @@ def load_businesses():
 
         else:
 
-            business = Business(name=name,
-                                address=address,
-                                latitude=latitude,
-                                longitude=longitude,
+            business = Business(business_name=name,
+                                business_address=address,
+                                business_latitude=latitude,
+                                business_longitude=longitude,
                                 distance=distance,
                                 duration=duration,
                                 station_code=station_code) 
@@ -114,7 +114,7 @@ def load_jobs():
 
     Job.query.delete()
 
-    companies = db.session.query(Business.business_id, Business.name).all()
+    companies = db.session.query(Business.business_id, Business.business_name).all()
     
     job_results = []
 
