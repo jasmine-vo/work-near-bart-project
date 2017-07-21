@@ -9,11 +9,11 @@
 
 {% endblock %}
 {% block body %}
+<title>Work Near BART - Home</title>
+
 <form action="/results/1">
-<div class="row">
+<div class="row text-center">
   Title: <input type="text" name="title" id="search-title">
-</div>
-<div class="row">
   Filter: <select name="station">
     <option value="all">all stations</option>   
     {% for station in stations %}
@@ -37,12 +37,10 @@
     <option value="100">100 per page</option>
   </select>
 
-  </div>
   <input type="submit">
 
 </form>
-
-<div class="row">
-  <div id="bartmap"></div>
 </div>
+<div id="bartmap"></div>
 {% endblock %}
+  

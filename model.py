@@ -119,12 +119,38 @@ class Save(db.Model):
 def example_data():
     """Create sample data"""
 
-    Business.query.delete()
-    Job.query.delete()
-    User.query.delete()
     Save.query.delete()
+    User.query.delete()
+    Job.query.delete()
+    Business.query.delete()
+    Bart.query.delete()
 
-    abc = Business(name="ABC, Inc.",
+    emb = Bart(station_code="EMBR",
+               name="Embarcadero",
+               address="298 Market Street",
+               city="San Francisco",
+               state="CA",
+               zipcode="94111",
+               latitude="37.792874",
+               longitude="-122.397020")
+
+    db.session.add(emb)
+
+    mon = Bart(station_code="MONT",
+               name="Montgomery",
+               address="598 Market Street",
+               city="San Francisco",
+               state="CA",
+               zipcode="94104",
+               latitude="37.789405",
+               longitude="-122.401066")
+
+    db.session.add(mon)
+
+    db.session.commit()
+
+    abc = Business(business_id=1,
+                    name="ABC, Inc.",
                     address="345 Spear St",
                     latitude="37.790052",
                     longitude="-122.390184",
@@ -136,7 +162,10 @@ def example_data():
                     glassdoor_url="http://www.glassdoor.com/Reviews/Employee-Review-Google-RVW15868147.htm",
                     station_code="EMBR")
 
-    test = Business(name="Test Company",
+    db.session.add(abc)
+
+    test = Business(business_id=2,
+                    name="Test Company",
                     address="653 Harrison St",
                     latitude="37.783158",
                     longitude="-122.396115",
@@ -148,12 +177,16 @@ def example_data():
                     glassdoor_url="https://www.glassdoor.com/Reviews/san-francisco-udacity-reviews-SRCH_IL.0,13_IM759_KE14,21.htm",
                     station_code="MONT")
 
+    db.session.add(test)
+
     se = Job(job_key="0123456789abcdef",
             title="Software Engineer",
             url="http://www.indeed.com/rc/clk?jk=ac95291e795c6aab",
             date_posted=datetime.datetime(2017, 7, 18, 10, 17, 1),
             duration_posted="13 hours ago",
             business_id=1)
+
+    db.session.add(se)
 
     se2 = Job(job_key="abcdef0123456789",
             title="Software Engineer, Growth",
@@ -162,13 +195,19 @@ def example_data():
             duration_posted="16 hours ago",
             business_id=2)
 
-    test_user = User(email="test@test.com",
+    db.session.add(se2)
+
+    test_user = User(user_id=1,
+                     email="test@test.com",
                      password="test")
+
+    db.session.add(test_user)
 
     save = Save(job_key='0123456789abcdef',
                         user_id=1)
 
-    db.session.add_all([abc, test, se, se2, test_user, save])
+    db.session.add(save)
+
     db.session.commit()
 
 
@@ -183,20 +222,13 @@ def init_app():
     print "Connected to DB."
 
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri="postgresql:///hbproject"):
     """Connect the database to our Flask app."""
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///hbproject'
-    app.config['SQLALCHEMY_ECHO'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
-
-# def connect_to_db(app, db_uri="postgresql:///hbproject"):
-#     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-#     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#     db.app = app
-#     db.init_app(app)
 
 
 if __name__ == "__main__":

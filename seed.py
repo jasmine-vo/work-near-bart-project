@@ -151,7 +151,7 @@ def load_jobs():
 
     for result in job_results:
         job_key = result.get('jobkey')
-        url = 'http://www.indeed.com/rc/clk?jk={}'.format(result.get('job_key'))
+        url = 'http://www.indeed.com/rc/clk?jk={}'.format(result.get('jobkey'))
         title = result.get('jobtitle')
         date_posted = datetime.datetime.strptime(result.get('date'), '%a, %d %b %Y %H:%M:%S %Z')
         duration_posted = result.get('formattedRelativeTime')

@@ -7,7 +7,7 @@
     <!-- put extra CSS/JS here -->
 {% endblock %}
 
-<title>Work Near BART</title>
+
 
 </head>
 <body>
@@ -41,11 +41,11 @@
     </ul>
   </div>
 </nav> -->
-
- <a href="/"> <h3>Work Near BART</h3> </a> in San Francisco
 <div class="container-fluid">
 
-  {% if 'user_id' in session %}
+  <div class="row">
+    <div class="text-right">
+      {% if 'user_id' in session %}
 
     <form action="/logout" method="POST">
       <button type="submit">Logout</button>
@@ -55,12 +55,23 @@
     
     {% else %}
     
-    <a href="/login">Login</a> | <a href="/register">Register</a>
+    <form action="/login"><button type="submit">Login</button></form><form action="/register"><button type="submit">Register</button></form>
   
   {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="text-center">
+ <a href="/"> <h3>Work Near BART</h3> </a> <h4>in San Francisco</h4><br>
+    </div>
+  </div>
+
+
+</div>
   {% block body %}
 
   {% endblock %}
-</div>
+
 </body>
 </html>

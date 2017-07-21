@@ -10,11 +10,11 @@
 {% endblock %}
 
 {% block body %}
+<title>Work Near BART - Results</title>
+
 <form action="/results/1">
-<div class="row">
-  Title: <input type="text" name="title">
-</div>
-<div class="row">
+<div class="row text-center">
+  Title: <input type="text" name="title" id="search-title">
   Filter: <select name="station">
     <option value="all">all stations</option>   
     {% for station in stations %}
@@ -38,11 +38,10 @@
     <option value="100">100 per page</option>
   </select>
 
-  </div>
   <input type="submit">
 
 </form>
-<button id="reset-map">Reset Map
+</div>
 <div id="companymap"></div>
 
   {% if current_page_results %}
