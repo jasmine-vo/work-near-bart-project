@@ -2,7 +2,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, redirect, request, session, jsonify, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from model import Bart, Business, Job, User, Save, connect_to_db, db
-from api_functions import get_job_results
+from api_functions import get_job_results, get_fare
 import datetime
 from functions import *
 from math import ceil
@@ -21,10 +21,13 @@ gmaps = os.environ['GOOGLE_MAPS_KEY']
 def index():
     """Homepage."""
     
-    stations = get_stations_from_db()
+    sf_stations = Bart.query.filter_by(station_city='San Francisco').all()
+
+    all_stations = Bart.query.all()
 
     return render_template("homepage.html",
-                            stations=stations,
+                            sf_stations=sf_stations,
+                            all_stations=all_stations,
                             gmaps=gmaps)
 
 
@@ -32,12 +35,15 @@ def index():
 def display_results(page_num):
     """Displays job results."""
 
-    stations = get_stations_from_db()
+    sf_stations = Bart.query.filter_by(station_city='San Francisco').all()
+
+    all_stations = Bart.query.all()
 
     title = '%'.join(request.args.get('title').split())
     selected_station = request.args.get('station')
     display_per_page = int(request.args.get('display'))
     days = int(request.args.get('days'))
+    origin_station = request.args.get('origin_station')
 
     # Calculates the datetime by getting the current time and subtracts the
     # number of days selected by the user
@@ -55,6 +61,21 @@ def display_results(page_num):
     # Calcuates number of page links to create
     num_pages = get_num_pages(len(job_results), display_per_page)
 
+    # If origin station was entered, calculate fare amounts
+    if origin_station != 'None':
+        if selected_station == 'all':
+            fare = {
+            station.station_code: {'fare' : get_fare(origin_station,
+                                                     station.station_code)
+            } for station in sf_stations}
+
+        else:
+            fare = {selected_station: {'fare' : get_fare(origin_station,
+                                                             selected_station)}
+            }
+    else:
+        fare = None
+
     # If the user is logged in, gets a list of their saved jobs.
     if 'user_id' in session:
         saved_jobs = get_saved_from_db(session.get('user_id'))
@@ -71,14 +92,17 @@ def display_results(page_num):
                             title=title,
                             selected_station=selected_station,
                             days=days,
-                            stations=stations,
+                            sf_stations=sf_stations,
                             gmaps=gmaps,
-                            saved_jobs=saved_jobs)
+                            saved_jobs=saved_jobs,
+                            fare=fare,
+                            all_stations=all_stations)
 
 
 @app.route('/stations.json')
 def get_station_info():
     """Returns BART station information in JSON format."""
+
 
     stations = {
         station.station_code: {
@@ -90,7 +114,7 @@ def get_station_info():
             'stationLatitude': station.station_latitude,
             'stationLongitude': station.station_longitude,
         }
-        for station in Bart.query.all()}
+        for station in Bart.query.filter_by(station_city='San Francisco').all()}
 
     return jsonify(stations) 
 

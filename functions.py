@@ -1,12 +1,6 @@
 from model import Bart, Business, Job, Save, db
 from math import ceil
 
-def get_stations_from_db():
-    """Returns query that returns all bart stations including the code, name,
-    latitude, and longitude."""
-
-    return db.session.query(Bart.station_code, Bart.station_name, Bart.station_latitude, Bart.station_longitude).all()
-
 
 def get_current_page_results(job_results, page_num, display_per_page):
     """Returns the job results for the current page"""

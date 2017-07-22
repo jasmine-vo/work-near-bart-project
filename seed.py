@@ -15,8 +15,6 @@ def load_stations():
 
     stations = get_stations()
 
-    sf_stations = [s for s in stations if s.get('city') == 'San Francisco']
-
     for station in sf_stations:
         station_code = station.get('abbr')
         name = station.get('name')

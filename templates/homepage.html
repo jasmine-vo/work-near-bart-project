@@ -13,11 +13,18 @@
 
 <form action="/results/1">
 <div class="row text-center">
-  Title: <input type="text" name="title" id="search-title">
-  Filter: <select name="station">
-    <option value="all">all stations</option>   
-    {% for station in stations %}
-      <option value={{ station[0] }}>{{ station[1] }}</option>
+  Origin: <select name="origin_station">
+    <option value="None">optional</option>   
+    {% for station in all_stations %}
+      <option value={{ station.station_code }}>{{ station.station_name }}</option>
+    {% endfor %}
+  </select><br>
+
+  Search Job Title: <input type="text" name="title" id="search-title">
+  Destination: <select name="station">
+    <option value="all">all SF stations</option>   
+    {% for station in sf_stations %}
+      <option value={{ station.station_code }}>{{ station.station_name }}</option>
     {% endfor %}
   </select>
 
