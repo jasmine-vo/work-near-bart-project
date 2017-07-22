@@ -7,6 +7,7 @@ import datetime
 from functions import *
 from math import ceil
 import os
+import bcrypt
 
 app = Flask(__name__)
 
@@ -149,19 +150,21 @@ def login_form():
 def login_in_process():
     """Login in process."""
 
-    user_password = request.form.get("password")
-    user_email = request.form.get("email")
+    password = request.form.get("password")
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+    email = request.form.get("email")
 
     # Checks if user email entered is in database.
-    user = User.query.filter(User.email == user_email).first()
+    user = User.query.filter(User.email == email).first()
 
     # If the user exists, checks if the password entered matches.
     if user:
 
-        if user_password == user.password:
+        if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
             user_id = user.user_id
             session['user_id'] = user_id
-            flash('You are logged in as {}.'.format(user_email))
+            flash('You are logged in as {}.'.format(email))
 
             return redirect('/')
 
@@ -176,7 +179,7 @@ def login_in_process():
         return redirect('/login')
 
 
-@app.route('/logout', methods=["POST"])
+@app.route('/logout')
 def log_out_process():
     """Log out process."""
 
@@ -198,6 +201,8 @@ def register_process():
     """Process form."""
 
     password = request.form.get("password")
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
     user_email = request.form.get("email")
 
     # Checks if the email already exists in the database.
@@ -206,7 +211,7 @@ def register_process():
         flash('Thank you for registering! Please log-in.')
 
         user = User(email=user_email,
-                    password=password)
+                    password=hashed_password)
 
 
         db.session.add(user)
