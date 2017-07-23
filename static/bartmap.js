@@ -3,6 +3,7 @@
 var sanFrancisco = {lat: 37.7598611, lng: -122.4161813};
 
 var map;
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('bartmap'), {
       center: sanFrancisco,
@@ -14,6 +15,9 @@ function initMap() {
 
   $.get('/stations.json', function (stations) {
 
+    // set up empty bounds
+    var bounds = new google.maps.LatLngBounds();
+
     var station, marker;
 
     for (var key in stations) {
@@ -24,6 +28,10 @@ function initMap() {
         label: station.stationName,
         animation: google.maps.Animation.DROP,
       });
+      // add each marker to bounds 
+      bounds.extend(marker.getPosition()); 
     }
+    // fit map to bounds
+    map.fitBounds(bounds);
   });
 }

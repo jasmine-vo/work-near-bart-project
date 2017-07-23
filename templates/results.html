@@ -1,80 +1,109 @@
 {% extends 'base.html' %}
 {% block head %}
 
-  <link href="/static/results.css" rel="stylesheet">
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="/static/savejob.js"></script>
   <script src="/static/companymap.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps }}&callback=initMap">
   </script>
+
+  <title>Work Near BART - Results</title>
+
 {% endblock %}
 
 {% block body %}
-<title>Work Near BART - Results</title>
+<div class="container">
 
-<form action="/results/1">
-<div class="row text-center">
-  Origin: <select name="origin_station">
-    <option value="None">optional</option>   
-    {% for station in all_stations %}
-      <option value={{ station.station_code }}>{{ station.station_name }}</option>
-    {% endfor %}
-  </select><br>
+  <form action="/results/1">
 
-  Search Job Title: <input type="text" name="title" id="search-title">
-  Destination: <select name="station">
-    <option value="all">all SF stations</option>   
-    {% for station in sf_stations %}
-      <option value={{ station.station_code }}>{{ station.station_name }}</option>
-    {% endfor %}
-  </select>
+    <div class="row">
+      <div class="col-sm-3">
+        <b>From</b>
+          <select class="form-control" name="origin_station">
+            <option value="None">Optional</option>   
+          {% for station in all_stations %}
+            <option value={{ station.station_code }}>{{ station.station_name }}</option>
+          {% endfor %}
+          </select>
+      </div> <!-- col-sm-3 -->
 
-  <select name="days">
-    <option value="999">anytime</option>
-    <option value="1">since yesterday</option>
-    <option value="3">within 3 days</option>
-    <option value="7">within 7 days</option>
-    <option value="15">within 15 days</option>
-    <option value="30">within 30 days</option>
-  </select>
+      <div class="col-sm-3">
+        <b>To</b>
+        <select class="form-control" name="station">
+          <option value="all">All SF Stations</option>   
+          {% for station in sf_stations %}
+            <option value={{ station.station_code }}>{{ station.station_name }}</option>
+          {% endfor %}
+        </select>
+      </div> <!-- col-sm-3 -->
 
-  <select name="display">
-    <option value="10">10 per page</option>
-    <option value="25">25 per page</option>
-  </select>
+      <div class="col-sm-3">
+        <b>Posted</b>
+        <select class="form-control" name="days">
+          <option value="999">Anytime</option>
+          <option value="1">since yesterday</option>
+          <option value="3">within 3 days</option>
+          <option value="7">within 7 days</option>
+          <option value="15">within 15 days</option>
+          <option value="30">within 30 days</option>
+        </select>
+      </div> <!-- col-sm-3 -->
 
-  <input type="submit">
+      <div class="col-sm-3">
+        <b>Display</b>
+        <select class="form-control" name="display">
+          <option value="10">10 per page</option>
+          <option value="25">25 per page</option>
+        </select>
+      </div> <!-- col-sm-3 -->
 
-</form>
-</div>
+    </div> <!-- row -->
 
-<div id="companymap"></div>
+    <!-- Job title search box -->
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="input-group">
+          <input class="form-control" type="text" name="title" placeholder="Job Title" autocomplete="off" required>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" id="search-icon"></button>
+          </span>
+        </div> <!-- input group -->
+      </div> <!-- col-sm-6 -->
+    </div> <!-- row -->
+  </form>
 
+  <!-- <div class="map-wrapper"> -->
+    <div class="pull-right" id="companymap"></div>
+  <!-- </div> map-wrapper -->
+
+      <div class="media-wrapper">
   {% if job_results %}
     {% for job in job_results[page_num * display_per_page - display_per_page : page_num * display_per_page] %}
-      <div class="media">
-        <img class="pull-left" src="{{ job.logo_url }}">
-        <div class="media-body">
-        <a href="{{ job.url }}">{{ job.title }}</a></h5><br>
-        {{ job.business_name }}<br>
-        Posted: {{ job.date_posted }} - {{ job.duration_posted }}<br>
-        BART Station: {{ job.station_name }} | Distance: {{ job.distance }} | Walking Time: ~{{ job.duration }}<br>
-        Glassdoor Rating: <a href="{{ job.glassdoor_url }}">{{ job.rating }}</a> | Industry: {{ job.industry }}<br>
-        {% if fare %}
-        One-Way Fare ${{ fare.get(job.station_code).get('fare') }}<br>
-        {% endif %}
-
-          {% if 'user_id' in session %}
-            {% if job.job_key in saved_jobs %}
-          <button name="save-job" id="{{ job.job_key }}" class="saved">Save</button>
-              {% else %}
-          <button name="save-job" id="{{ job.job_key }}" class="not-saved">Save</button>
-            {% endif %}
-
+        <div class="media">
+          <img class="pull-left" src="{{ job.logo_url }}">
+          <div class="media-body">
+          <a href="{{ job.url }}">{{ job.title }}</a></h5><br>
+          {{ job.business_name }}<br>
+          Posted: {{ job.date_posted }} - {{ job.duration_posted }}<br>
+          BART Station: {{ job.station_name }} | Distance: {{ job.distance }} | Walking Time: ~{{ job.duration }}<br>
+          Glassdoor Rating: <a href="{{ job.glassdoor_url }}">{{ job.rating }}</a> | Industry: {{ job.industry }}<br>
+          {% if fare %}
+          One-Way Fare ${{ fare.get(job.station_code).get('fare') }}<br>
           {% endif %}
-        </div>  
-      </div>
+
+            {% if 'user_id' in session %}
+              {% if job.job_key in saved_jobs %}
+            <button name="save-job" id="{{ job.job_key }}" class="saved">Save</button>
+                {% else %}
+            <button name="save-job" id="{{ job.job_key }}" class="not-saved">Save</button>
+              {% endif %}
+
+            {% endif %}
+          </div> <!-- media body -->
+        </div> <!-- media -->
     {% endfor %}
+      </div> <!-- media wrapper -->
+</div> <!-- container-fluid -->
   {% else %}
     <h4>No Results</h4>
 

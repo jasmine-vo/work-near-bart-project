@@ -9,9 +9,9 @@ function CenterControl(controlDiv, map) {
 
   // Set CSS for the control border.
   var controlUI = document.createElement('div');
-    controlUI.style.backgroundColor = '#fff';
-    controlUI.style.border = '2px solid #fff';
-    controlUI.style.borderRadius = '3px';
+    controlUI.style.backgroundColor = '#0a96d4';
+    // controlUI.style.border = '1px solid #fff';
+    // controlUI.style.borderRadius = '0x';
     controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
     controlUI.style.cursor = 'pointer';
     controlUI.style.marginBottom = '22px';
@@ -21,10 +21,10 @@ function CenterControl(controlDiv, map) {
 
   // Set CSS for the control interior.
   var controlText = document.createElement('div');
-    controlText.style.color = 'rgb(25,25,25)';
-    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-    controlText.style.fontSize = '16px';
-    controlText.style.lineHeight = '38px';
+    controlText.style.color = '#fff';
+    controlText.style.fontFamily = 'Arial,sans-serif';
+    controlText.style.fontSize = '14px';
+    controlText.style.lineHeight = '25px';
     controlText.style.paddingLeft = '5px';
     controlText.style.paddingRight = '5px';
     controlText.innerHTML = 'Reset Map';
@@ -108,6 +108,45 @@ function initMap() {
     map.fitBounds(bounds);
   });    
 }
+
+$(function(){
+  // Get the position of the company map div
+  var fixedToTop = $('#companymap').offset().top;
+
+  // Get the position of the media on left side of page
+  var mediaLeft = $('.media-wrapper').offset().left;
+  var mediaTop = $('.media-wrapper').offset().top;
+
+
+  $(window).scroll(function(){
+    if( $(window).scrollTop() > fixedToTop) {
+            $('#companymap').css({position: 'fixed',
+                                  top: '10px',
+                                  right: mediaLeft + 'px'});  
+    } else {
+            $('#companymap').css({height: '400px',
+                                  width: '350px',
+                                  top: '',
+                                  // right: mediaLeft + 'px'
+                                });
+    }
+  });
+});
+
+// $(function(){
+//   // Get the element company map div
+//   var companyMap = $('#companymap');
+
+//   // Get window width
+//   var windowWidth = $( window ).width();
+
+//   if (windowWidth < 770) {
+//     companyMap.hide();
+//   } else {
+//     companyMap.show();
+//   }
+// });
+
 
 
 
