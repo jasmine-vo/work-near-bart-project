@@ -85,7 +85,7 @@
           <a href="{{ job.url }}">{{ job.title }}</a></h5><br>
           {{ job.business_name }}<br>
           Posted: {{ job.date_posted }} - {{ job.duration_posted }}<br>
-          BART Station: {{ job.station_name }} | Distance: {{ job.distance }} | Walking Time: ~{{ job.duration }}<br>
+          BART Station: {{ job.station_name }} | Distance: {{ job.distance }} | <i class="material-icons md-18">directions_walk</i> ~{{ job.duration }}<br>
           Glassdoor Rating: <a href="{{ job.glassdoor_url }}">{{ job.rating }}</a> | Industry: {{ job.industry }}<br>
           {% if fare %}
           One-Way Fare ${{ fare.get(job.station_code).get('fare') }}<br>

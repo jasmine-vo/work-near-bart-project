@@ -1,0 +1,88 @@
+Part 1: Discussion Questions
+
+
+Recursion
+
+1. In your own words, what is recursion?
+
+    Recursion is when a function calls itself.  This method can be used in place
+    of a loop, there are problems where once might be easier to use than the other.
+
+2. Why is it necessary to have a base case?
+
+    It is necessary to have a base case so that the function knows when to stop
+    recursing (or looping).
+
+Graphs
+
+1. What is a graph?
+
+    A graph is very similar to trees, but the nodes in graphs can loop back to
+    each other.
+
+2. How is a graph different from a tree?
+
+    Nodes in graphs can loop back to each other. Nodes can have relationships with each other, it doesn't matter where they are placed. Trees display the hierarchical relationship between nodes, but graphs do not have hierarchy.  
+
+3. Give an example of something that would be good to model with a graph.
+
+    An example that would be good to model with a graph is to see how suspects
+    have a relationship with victims and other suspects to solve a case.
+
+
+Performance of Different Data Structures
+
+Data Structure                Index    Search   Add-R    Add-L    Pop-L    Pop-R
+         Python List (Array)   O(1)     O(n)    O(1)      O(n)     O(n)     O(1)
+                 Linked List   O(n)     O(n)    O(1)      O(1)     O(1)     O(1)
+          Doubly-Linked List   O(n)     O(n)    O(1)      O(1)     O(1)     O(1) 
+            Queue (as Array)    X        X      O(1)       X       O(n)       X     
+        Queue (as LL or DLL)    X        X      O(1)       X       O(1)       X       
+Stack (as Array, LL, or DLL)    X        X      O(1)       X         X      O(1)
+              Deque (as DLL)    X        X      O(1)      O(1)     O(1)     O(1)         
+
+Fill in Runtime and Memory:
+
+Data Structure          Get     Add      Delete     Iterate     Memory
+Dictionary (Hash Map)   O(1)    O(1)     O(1)       O(n)        medium
+       Set (Hash Map)   O(1)    O(1)     O(1)       O(n)        little
+   Binary Search Tree   O(n)    O(log n) O(log n)   O(n)        little          
+                 Tree   O(n)    O(n)     O(n)       O(n)        little
+
+
+Sorting
+
+1. Describe in words how the Bubble Sort algorithm works.
+
+    The bubble sort takes in a list, and checks the first two items in the list.
+    If the item at index 0 is larger than the item at index 1, they switch. This
+    continues down the list to compare every pair items.  Next, the item at index 1
+    is compared with the item at index 2. If index 1 is larger, they switch.  If
+    not continue down the list and compare the next pair.  This keeps going until
+    the larger numbers are moved to the end of the list.
+
+2. Describe in words how the Merge Sort algorithm works.
+
+    The merge sort takes in a list and continually divides the list in half to
+    eventually get seperate lists containing one element by using recursion.  
+    Then, it compares the individual lists in pairs, sorts them and appends them
+    to a sorted list.  Then the next branch of lists are compared, and so on.
+    This happens until you end up with two sorted lists.  The first element of 
+    each sorted list is compared.  The lower element is popped from the beginning
+    of the list, and gets appended to a new list.  This continues until both lists 
+    are empty.  As a result will have a single list with all the elements in order.
+
+3. Describe in words how the Quick Sort algorithm works.
+
+    One way to implement quick sort is to take in a list, and select the last
+    element as the pivot.  The pivot is the element that will be used to compare
+    with each item in the list.  Three seperate lists are created; one is to append 
+    elements that are higher that the pivot; another to append elements that are 
+    lower than the pivot, and another to append the pivot.  Starting at the beginning 
+    of the list, if the first element at index 0 is lower than the pivot, it is
+    appended to the 'lower' list, alternatively if it is higher, it is appended to
+    the 'higher' list.  If the element is the same as the pivot, it is appended 
+    to a 'middle' list or pivot list. This keeps going until you reach the end of the 
+    list.  Then quick sort is implemented on the lists containing lower and higher
+    values.  Once complete, all lists are concatenated to create a single sorted
+    list.
