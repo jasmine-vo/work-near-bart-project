@@ -1,6 +1,10 @@
 "use strict";
 
+// If the user clicks on the thumbs up button to save a job, the button will
+// turn blue.  Call is made to the Flask route to update the database.
 
+// If the user clicks on the button that is already saved, the job will be
+// unsaved. Call is made to the Flask route to update the database.
 $(function () {
   function addToSavedJobs(results) {
 
@@ -30,6 +34,8 @@ $(function () {
   });
 });
 
+// If the user deletes a job from their saved job list. Call is made to the 
+// Flask route to update the database.
 $(function () {
   function removeSavedJobs(results) {
 
