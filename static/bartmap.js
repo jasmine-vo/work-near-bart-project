@@ -1,9 +1,11 @@
 "use strict";
 
+// Set a variable to latitude longitude points in San Francisco, CA
 var sanFrancisco = {lat: 37.7598611, lng: -122.4161813};
 
 var map;
 
+// Generates a map of San Francisco, CA
 function initMap() {
   map = new google.maps.Map(document.getElementById('bartmap'), {
       center: sanFrancisco,
@@ -24,13 +26,15 @@ function initMap() {
 ],
   });
 
+  // Makes a call to the Flask route to get station info. 
   $.get('/stations.json', function (stations) {
 
-    // set up empty bounds
+    // Set up empty bounds.
     var bounds = new google.maps.LatLngBounds();
 
     var station, marker;
 
+    // Loops over the station info to generate markers on the map
     for (var key in stations) {
       station = stations[key];
       marker = new google.maps.Marker({
@@ -43,10 +47,10 @@ function initMap() {
         // icon: '/static/img/line-marker.png',
         animation: google.maps.Animation.DROP,
       });
-      // add each marker to bounds 
+      // Add each marker to bounds 
       bounds.extend(marker.getPosition()); 
     }
-    // fit map to bounds
+    // Fits the map to bounds
     map.fitBounds(bounds);
   });
 }
