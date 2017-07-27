@@ -1,5 +1,9 @@
 "use strict";
 
+////////////////////////////////////////////////////////////
+// Code was pulled from the Google Maps API Documentation //
+////////////////////////////////////////////////////////////
+
 // Set a variable to latitude longitude points in San Francisco, CA
 var sanFrancisco = {lat: 37.7598611, lng: -122.4161813};
 

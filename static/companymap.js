@@ -64,6 +64,8 @@ function initMap() {
     // set up empty bounds
     var bounds = new google.maps.LatLngBounds();
 
+    // Loops over the job listings to generate markers for each company on the
+    // current page
     var job, marker, jobLatitude, jobLongitude;
     console.log(job_listings);
     for (var key in job_listings) {
@@ -79,7 +81,9 @@ function initMap() {
         stationName: job.stationName,
         stationPosition: {lat: parseFloat(job.stationLatitude), lng: parseFloat(job.stationLongitude)}
       }); 
-    
+      
+      // Displays the walking directions on the map, function is ran when a
+      // marker is clicked.
       function calculateAndDisplayRoute(directionsService, directionsDisplay, position, stationPosition) {
         directionsService.route({
         origin: stationPosition,
@@ -98,6 +102,8 @@ function initMap() {
       var directionsDisplay = new google.maps.DirectionsRenderer;
       directionsDisplay.setMap(map);
 
+      // Add event listener to markers, and runs the calculateAndDisplayRoute
+      // function when clicked.
       marker.addListener('click', function (evt) {
         var position = this.position
         var stationPosition = this.stationPosition
@@ -105,10 +111,10 @@ function initMap() {
         calculateAndDisplayRoute(directionsService, directionsDisplay, position, stationPosition);
       });
 
-      // add each marker to bounds 
+      // Add each marker to bounds 
       bounds.extend(marker.getPosition());
     }
-    // fit map to bounds
+    // Fit map to bounds
     map.fitBounds(bounds);
   });    
 }
@@ -130,7 +136,8 @@ $(function(){
   var mediaLeft = $('.media-wrapper').offset().left;
   var mediaTop = $('.media-wrapper').offset().top;
 
-
+  // Add event listener to window scroll.  When user scrolls up/down, the CSS 
+  // of the map's div changes.
   $(window).scroll(function(){
     if( $(window).scrollTop() > fixedToTop) {
             $('#companymap').css({position: 'fixed',
