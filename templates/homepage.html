@@ -25,6 +25,8 @@
   <form action="/results/1">
 
     <div class="row">
+
+      <!-- Dropdown to select a 'From' station, optional -->
       <div class="col-sm-3">
         <b>From</b>
           <select class="form-control" name="origin_station">
@@ -35,6 +37,7 @@
           </select>
       </div>
 
+      <!-- Dropdown to select a 'To' station, optional -->
       <div class="col-sm-3">
         <b>To</b>
         <select class="form-control" name="station">
@@ -45,6 +48,7 @@
         </select>
       </div>
 
+      <!-- Filter by time posted, optional -->
       <div class="col-sm-3">
         <b>Posted</b>
         <select class="form-control" name="days">
@@ -57,6 +61,7 @@
         </select>
       </div>
 
+      <!-- Number of results to display per page -->
       <div class="col-sm-3">
         <b>Display</b>
         <select class="form-control" name="display">
@@ -66,8 +71,9 @@
       </div>
     </div>
 
-        <!-- Job title search box -->
     <div class="row">
+
+      <!-- Job title search box REQUIRED for results -->
       <div class="col-sm-6">
         <div class="input-group">
           <input class="form-control" type="text" name="title" placeholder="Job Title" autocomplete="off" required>
