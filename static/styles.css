@@ -1,7 +1,4 @@
-/* Background image */
-
-
-
+/* GENERAL STYLING */
 
 h4 {
   color: #0086AF;
@@ -13,27 +10,15 @@ body {
 
 }
 
-#job-industry {
-  font-size: 13px;
+/*Change the size of material icons*/
+.material-icons.md-18 {
+    font-size: 18px;
+    vertical-align: bottom;
 }
 
-#job-posted {
-  font-size: 13px;
-  color: gray;
-}
-#saved-jobs {
-  height: 600px;
-  width: 600px;
-  padding-top: 25px;
-  padding-left: 50px;
-  padding-right: 50px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.80);
-}
-
-button[name=unsave-job] {
-  background: none;
-  border: none;
+/* Removes blue outline from buttons when clicked */
+button:focus {
+  outline:0;
 }
 
 /* Form styles */
@@ -54,6 +39,66 @@ button[name=unsave-job] {
     padding: 5px;
 }
 
+
+/* HOMEPAGE */
+
+/* Homepage blurb styles */
+#blurb {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+
+/* RESULTS PAGE */
+
+#job-industry {
+  font-size: 13px;
+}
+
+#job-posted {
+  font-size: 13px;
+  color: gray;
+}
+
+/* Resizes logos on results page */
+.pull-left {
+    width: 50px;
+}
+
+/* Save buttons styles on results page */
+.saved {
+    color: #00A3D5;
+}
+
+.not-saved {
+    color: gray;
+}
+
+button[name=save-job] {
+  background: none;
+  /*border: 1px solid gray;*/
+  border: none;
+}
+
+
+/* SAVED JOBS PAGE */
+#saved-jobs {
+  height: 600px;
+  width: 600px;
+  padding-top: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.80);
+}
+
+button[name=unsave-job] {
+  background: none;
+  border: none;
+}
+
+/* Set width of div on results page depending on screen size */
 @media (max-width: 769px) {
     .media-wrapper {
         width: 100%;
@@ -72,6 +117,9 @@ button[name=unsave-job] {
     border-bottom: 1px solid #30C9E9;
     padding-bottom: 5px;
 }
+
+
+/* GOOGLE MAPS */
 
 /* Bart Google Map */
 #bartmap {
@@ -95,47 +143,14 @@ button[name=unsave-job] {
   }
 }
 
-/* Homepage blurb styles */
-#blurb {
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
 
-}
+/* 
 
-/* Resizes logos on results page */
-.pull-left {
-    width: 50px;
-}
+NAVBAR 
+Used this website to generate styles
+https://work.smarchal.com/twbscolor/
 
-
-/*Change the size of material icons*/
-.material-icons.md-18 {
-    font-size: 18px;
-    vertical-align: bottom;
-}
-
-
-/* Save buttons styles on results page */
-.saved {
-    color: #00A3D5;
-}
-
-.not-saved {
-    color: gray;
-}
-
-button:focus {
-  outline:0;
-}
-
-button[name=save-job] {
-  background: none;
-  /*border: 1px solid gray;*/
-  border: none;
-}
-
-/* Navbar styles */
+*/
 
 .navbar-default {
 /*  background-color: #30C9E9;*/  

@@ -1,3 +1,5 @@
+// DIDN'T USE.
+
 var MAPSTYLES = [
     {
         "featureType": "landscape.man_made",
