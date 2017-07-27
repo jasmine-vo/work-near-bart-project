@@ -5,6 +5,7 @@
   <script src="/static/savejob.js"></script>
 
 <style>
+
 body {
     background: url(/static/img/corey-agopian-unsplash-edited.jpg) no-repeat center center;
     -webkit-background-size: cover;
@@ -16,11 +17,17 @@ body {
 .container {
   background-color: white;
 }
+
+
 </style>
 
 {% endblock %}
 {% block body %}
+
 <div class="container vertical-center" id="saved-jobs">
+
+  <!-- The Flask route gets saved jobs from the database. If user has saved jobs, -->
+  <!-- the data is looped to generate a list. -->
   {% if user.saved %}
   <div class="row">
     <h4>Your Saved Jobs</h4>
@@ -32,6 +39,8 @@ body {
       </div>
     </div>
     {% endfor %}
+
+  <!-- Displays this if the user doesn't have any saved jobs.   -->
   {% else %}
     You haven't saved any jobs yet.
   {% endif %}
