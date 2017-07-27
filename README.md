@@ -10,8 +10,13 @@ Python, JavaScript, AJAX, JSON, HTML, CSS, Flask, jQuery, Bootstrap,  Jinja, Pos
 
 SF Data, Google Maps, Google Distance Matrix, Indeed, BART, Glassdoor
 
-## TO DO:
+### TO DO:
 
+Short term:
 - Add more tests
 - Add warning message when user deletes a job from their saved jobs list
 - Finish styling Login and Register pages
+
+Long term:
+- Change data set up process, looking into Google Places API
+- Expand beyond San Francisco (Oakland next?)
