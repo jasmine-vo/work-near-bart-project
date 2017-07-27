@@ -23,6 +23,7 @@
 
 <body>
 
+<!-- Set up Flash messages -->
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
@@ -33,6 +34,9 @@
   {% endif %}
 {% endwith %}
 
+<!-- Set up Bootstrap navbar.  If the user is logged in, will have button for 
+'Saved Jobs' and 'Logout'.  If the user is not logged in, will have buttons for
+'Login' and 'Register'. -->
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
