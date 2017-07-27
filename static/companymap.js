@@ -1,5 +1,9 @@
 "use strict";
 
+////////////////////////////////////////////////////////////
+// Code was pulled from the Google Maps API Documentation //
+////////////////////////////////////////////////////////////
+
 var sanFrancisco = {lat: 37.7598611, lng: -122.4161813};
 
 var map;
@@ -108,6 +112,15 @@ function initMap() {
     map.fitBounds(bounds);
   });    
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// The below code adds event listener to the window.  When the page is                                         //
+// scrolled down, the map fill be fixed to the top of the page.  I used code                                   //
+// from answer on Stack Overflow, link below:                                                                  //
+// https://stackoverflow.com/questions/36276293/fix-div-when-position-reaches-85px-from-top-of-window-on-scroll//
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 $(function(){
   // Get the position of the company map div

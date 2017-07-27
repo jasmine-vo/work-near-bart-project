@@ -11,6 +11,17 @@ function initMap() {
       mapTypeControl: false,
       zoomControl: false,
       streetViewControl: false,
+      styles: [
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#AAD4FC"
+            }
+        ]
+    }
+],
   });
 
   $.get('/stations.json', function (stations) {
@@ -25,7 +36,11 @@ function initMap() {
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(station.stationLatitude, station.stationLongitude),
         map: map,
-        label: station.stationName,
+        label: {
+          text: station.stationName,
+          // fontWeight: "bold"
+        },
+        // icon: '/static/img/line-marker.png',
         animation: google.maps.Animation.DROP,
       });
       // add each marker to bounds 

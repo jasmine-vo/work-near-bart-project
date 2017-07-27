@@ -83,19 +83,26 @@
           <img class="pull-left" src="{{ job.logo_url }}">
           <div class="media-body">
           <a href="{{ job.url }}">{{ job.title }}</a></h5><br>
-          {{ job.business_name }}<br>
-          Posted: {{ job.date_posted }} - {{ job.duration_posted }}<br>
-          BART Station: {{ job.station_name }} | Distance: {{ job.distance }} | <i class="material-icons md-18">directions_walk</i> ~{{ job.duration }}<br>
-          Glassdoor Rating: <a href="{{ job.glassdoor_url }}">{{ job.rating }}</a> | Industry: {{ job.industry }}<br>
-          {% if fare %}
-          One-Way Fare ${{ fare.get(job.station_code).get('fare') }}<br>
-          {% endif %}
+          <b>{{ job.business_name }}</b> - <a href="{{ job.glassdoor_url }}">{{ job.rating }}</a><br>
+          <span id="job-industry">{{ job.industry }}<br></span>
+          <span id="job-posted">Posted: {{ job.duration_posted }} on {{ job.date_posted }}</span>
+          <table style="width:100%">
+            <col width="175">
+            <col width="155">
+              <tr>
+                <td><i class="material-icons md-18">train</i> {{ job.station_name }}</td>
+                <td><i class="material-icons md-18">directions_walk</i> ~{{ job.duration }}  ({{ job.distance }})</td>
+                {% if fare %}
+                <td><i class="material-icons md-18">attach_money</i>{{ fare.get(job.station_code).get('fare') }}</td>
+                {% endif %}
+              </tr>
+          </table>
 
             {% if 'user_id' in session %}
               {% if job.job_key in saved_jobs %}
-            <button name="save-job" id="{{ job.job_key }}" class="saved">Save</button>
+            <button name="save-job" id="{{ job.job_key }}" class="saved"><i class="material-icons md-18">thumb_up</i></button>
                 {% else %}
-            <button name="save-job" id="{{ job.job_key }}" class="not-saved">Save</button>
+            <button name="save-job" id="{{ job.job_key }}" class="not-saved"><i class="material-icons md-18">thumb_up</i></button>
               {% endif %}
 
             {% endif %}

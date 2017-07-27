@@ -15,7 +15,7 @@ def load_stations():
 
     stations = get_stations()
 
-    for station in sf_stations:
+    for station in stations:
         station_code = station.get('abbr')
         name = station.get('name')
         address = station.get('address')

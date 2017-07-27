@@ -8,13 +8,15 @@ $(function () {
     var saved = results.status;
 
     if (saved === "saved") {
-      $('#' + id).css('color', 'red');
+      $('#' + id).css('color', '#00A3D5');
       $('#' + id).removeClass('not-saved').addClass('saved');
+      $('#' + id).html('<i class="material-icons md-18">thumb_up</i>');
     }
 
     else if (saved === "not-saved") {
       $('#' + id).css('color', 'grey');
       $('#' + id).removeClass('saved').addClass('not-saved');
+      $('#' + id).html('<i class="material-icons md-18">thumb_up</i>')
     }
   }
 

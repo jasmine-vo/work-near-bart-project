@@ -4,17 +4,36 @@
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="/static/savejob.js"></script>
 
+<style>
+body {
+    background: url(/static/img/corey-agopian-unsplash-edited.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.container {
+  background-color: white;
+}
+</style>
+
 {% endblock %}
 {% block body %}
-<p>
+<div class="container vertical-center" id="saved-jobs">
   {% if user.saved %}
+  <div class="row">
+    <h4>Your Saved Jobs</h4>
+  </div>
     {% for save in user.saved %}
+    <div class="row">
       <div id="{{ save.job_key }}">
-        <a href="{{ save.job.url }}"><b>{{ save.job.title }}</b></a>, {{ save.job.business.business_name }} | Posted: {{ save.job.duration_posted }} <button id="{{ save.job_key }}" name="unsave-job" class="not-saved"><span class="glyphicon glyphicon-remove"></span></button></li>
+        <a href="{{ save.job.url }}"><b>{{ save.job.title }}</b></a>, {{ save.job.business.business_name }} | Posted: {{ save.job.duration_posted }} <button id="{{ save.job_key }}" name="unsave-job" class="not-saved"><i class="material-icons md-18">delete_forever</i></span></button></li>
       </div>
+    </div>
     {% endfor %}
   {% else %}
     You haven't saved any jobs yet.
   {% endif %}
-
+</div>
 {% endblock %}
