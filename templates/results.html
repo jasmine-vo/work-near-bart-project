@@ -17,6 +17,8 @@
   <form action="/results/1">
 
     <div class="row">
+
+      <!-- Dropdown to select a 'From' station, optional -->
       <div class="col-sm-3">
         <b>From</b>
           <select class="form-control" name="origin_station">
@@ -27,6 +29,7 @@
           </select>
       </div> <!-- col-sm-3 -->
 
+      <!-- Dropdown to select a 'To' station, optional -->
       <div class="col-sm-3">
         <b>To</b>
         <select class="form-control" name="station">
@@ -37,6 +40,7 @@
         </select>
       </div> <!-- col-sm-3 -->
 
+      <!-- Option to filter by amount of time posted -->
       <div class="col-sm-3">
         <b>Posted</b>
         <select class="form-control" name="days">
@@ -49,6 +53,7 @@
         </select>
       </div> <!-- col-sm-3 -->
 
+      <!-- Results to display per page -->
       <div class="col-sm-3">
         <b>Display</b>
         <select class="form-control" name="display">
@@ -59,7 +64,7 @@
 
     </div> <!-- row -->
 
-    <!-- Job title search box -->
+    <!-- Job title search box, REQUIRED FOR results -->
     <div class="row">
       <div class="col-sm-6">
         <div class="input-group">
@@ -72,32 +77,34 @@
     </div> <!-- row -->
   </form>
 
-  <!-- <div class="map-wrapper"> -->
-    <div class="pull-right" id="companymap"></div>
-  <!-- </div> map-wrapper -->
+  <!-- Google Map -->
+  <div class="pull-right" id="companymap"></div>
 
-      <div class="media-wrapper">
+  <div class="media-wrapper">
+
+  <!-- If there are job results, will loop over the results for the current page -->
   {% if job_results %}
     {% for job in job_results[page_num * display_per_page - display_per_page : page_num * display_per_page] %}
-        <div class="media">
-          <img class="pull-left" src="{{ job.logo_url }}">
+      <div class="media">
+        <img class="pull-left" src="{{ job.logo_url }}">
           <div class="media-body">
-          <a href="{{ job.url }}">{{ job.title }}</a></h5><br>
-          <b>{{ job.business_name }}</b> - <a href="{{ job.glassdoor_url }}">{{ job.rating }}</a><br>
-          <span id="job-industry">{{ job.industry }}<br></span>
-          <span id="job-posted">Posted: {{ job.duration_posted }} on {{ job.date_posted }}</span>
-          <table style="width:100%">
-            <col width="175">
-            <col width="155">
-              <tr>
-                <td><i class="material-icons md-18">train</i> {{ job.station_name }}</td>
-                <td><i class="material-icons md-18">directions_walk</i> ~{{ job.duration }}  ({{ job.distance }})</td>
-                {% if fare %}
-                <td><i class="material-icons md-18">attach_money</i>{{ fare.get(job.station_code).get('fare') }}</td>
-                {% endif %}
-              </tr>
-          </table>
+            <a href="{{ job.url }}">{{ job.title }}</a></h5><br>
+            <b>{{ job.business_name }}</b> - <a href="{{ job.glassdoor_url }}">{{ job.rating }}</a><br>
+            <span id="job-industry">{{ job.industry }}<br></span>
+            <span id="job-posted">Posted: {{ job.duration_posted }} on {{ job.date_posted }}</span>
+            <table style="width:100%">
+              <col width="175">
+              <col width="155">
+                <tr>
+                  <td><i class="material-icons md-18">train</i> {{ job.station_name }}</td>
+                  <td><i class="material-icons md-18">directions_walk</i> ~{{ job.duration }}  ({{ job.distance }})</td>
+                  {% if fare %}
+                  <td><i class="material-icons md-18">attach_money</i>{{ fare.get(job.station_code).get('fare') }}</td>
+                  {% endif %}
+                </tr>
+            </table>
 
+            <!-- If the user is logged in, will display the 'thumbs up'/'save' button -->
             {% if 'user_id' in session %}
               {% if job.job_key in saved_jobs %}
             <button name="save-job" id="{{ job.job_key }}" class="saved"><i class="material-icons md-18">thumb_up</i></button>
@@ -107,35 +114,39 @@
 
             {% endif %}
           </div> <!-- media body -->
-        </div> <!-- media -->
+      </div> <!-- media -->
     {% endfor %}
-      </div> <!-- media wrapper -->
+  </div> <!-- media wrapper -->
 </div> <!-- container-fluid -->
   {% else %}
     <h4>No Results</h4>
 
   {% endif %}
 
-    {% if num_pages > 1 %}
 
-    <nav aria-label="pagenav">
-      <ul class="pagination">
+<!-- If there is more than one page needed to display results, generates page links -->
+<!-- for each page -->
 
-        {% for page in range(1, num_pages + 1) %}
+{% if num_pages > 1 %}
 
-          {% if page == page_num %}
-            <li class="page-item active" id="current_page" value="{{ page }}">
-          {% else %}
-            <li class="page-item">
-          {% endif %}
+<nav aria-label="pagenav">
+  <ul class="pagination">
 
-          <a class="page-link" href="/results/{{ page }}?title={{ title }}&station={{ selected_station }}&days={{ days }}&display={{ display_per_page }}">{{ page }}</a>
-            </li>
+    {% for page in range(1, num_pages + 1) %}
 
-        {% endfor %}
-      </ul>
-    </nav>
+      {% if page == page_num %}
+        <li class="page-item active" id="current_page" value="{{ page }}">
+      {% else %}
+        <li class="page-item">
+      {% endif %}
 
-  {% endif %}
+      <a class="page-link" href="/results/{{ page }}?title={{ title }}&station={{ selected_station }}&days={{ days }}&display={{ display_per_page }}">{{ page }}</a>
+        </li>
+
+    {% endfor %}
+  </ul>
+</nav>
+
+{% endif %}
 
 {% endblock %}
