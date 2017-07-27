@@ -21,9 +21,13 @@ gmaps = os.environ['GOOGLE_MAPS_KEY']
 @app.route('/')
 def index():
     """Homepage."""
-    
+
+    # Get all bart stations in San Francisco from database, to be populated in
+    # the 'To' dropdown form
     sf_stations = Bart.query.filter_by(station_city='San Francisco').all()
 
+    # Get all bart stations from the database, to be populated in the 'From'
+    # dropdown form
     all_stations = Bart.query.all()
 
     return render_template("homepage.html",
@@ -36,10 +40,15 @@ def index():
 def display_results(page_num):
     """Displays job results."""
 
+    # Get all bart stations in San Francisco from database, to be populated in
+    # the 'To' dropdown form
     sf_stations = Bart.query.filter_by(station_city='San Francisco').all()
 
+    # Get all bart stations from the database, to be populated in the 'From'
+    # dropdown form
     all_stations = Bart.query.all()
 
+    # Get values from form
     title = '%'.join(request.args.get('title').split())
     selected_station = request.args.get('station')
     display_per_page = int(request.args.get('display'))
@@ -104,7 +113,8 @@ def display_results(page_num):
 def get_station_info():
     """Returns BART station information in JSON format."""
 
-
+    # Gets all BART stations in San Francisco to generate markers on the map
+    # on the homepage
     stations = {
         station.station_code: {
             'stationName': station.station_name,
@@ -124,6 +134,8 @@ def get_station_info():
 def get_job_listings():
     """Return job results on current page in JSON format."""
 
+    # Gets the job listings on the current page from session to generate markers
+    # on the map in the results page
     job_listings = {   
         row[12]: {
             'jobCompany': row[2],
@@ -150,9 +162,9 @@ def login_form():
 def login_in_process():
     """Login in process."""
 
+    # Get password and email from form. Password is hashed.
     password = request.form.get("password")
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
     email = request.form.get("email")
 
     # Checks if user email entered is in database.
@@ -200,17 +212,17 @@ def register_form():
 def register_process():
     """Process form."""
 
+    # Get password and email from form. Password is hashed.
     password = request.form.get("password")
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
-    user_email = request.form.get("email")
+    email = request.form.get("email")
 
     # Checks if the email already exists in the database.
     # If not, adds the user as a new user in the database.
-    if User.query.filter_by(email=user_email).first() is None:
+    if User.query.filter_by(email=email).first() is None:
         flash('Thank you for registering! Please log-in.')
 
-        user = User(email=user_email,
+        user = User(email=email,
                     password=hashed_password)
 
 
@@ -227,8 +239,10 @@ def register_process():
 def display_saved_jobs():
     """Displays the user's saved jobs."""
 
+    # Gets the user in database by searching user id in session
     user = User.query.filter_by(user_id=session.get('user_id')).first()
 
+    # Gets the user's saved jobs from the database
     saved = db.session.query(Save.job_key).filter(Save.user_id==session.get('user_id')).all()
 
     return render_template('saved_jobs.html',
