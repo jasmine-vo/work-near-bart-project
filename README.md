@@ -23,8 +23,11 @@ Long term:
 
 ## DEMO
 
+Search by Job title
 ![alt tag](/static/img/demo1.gif)
 
+Users can save/unsave jobs
 ![alt tag](/static/img/demo2.gif)
 
+Interact with the map to view walking directions
 ![alt tag](/static/img/demo3.gif)
