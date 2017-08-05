@@ -20,3 +20,11 @@ Short term:
 Long term:
 - Change data set up process, looking into Google Places API
 - Expand beyond San Francisco (Oakland next?)
+
+## DEMO
+
+![alt tag](/static/img/demo1.gif)
+
+![alt tag](/static/img/demo2.gif)
+
+![alt tag](/static/img/demo3.gif)
